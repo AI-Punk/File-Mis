@@ -16,11 +16,11 @@ class MainMenu extends Component {
           <Icon type="user" />
           <span>Home Page</span>
         </Menu.Item>
-        <Menu.Item key="2">
+        <Menu.Item key="2" onClick={() => {this.changeWindow('fileList')}}>
           <Icon type="video-camera" />
           <span>Resource Center</span>
         </Menu.Item>
-        <Menu.Item key="3">
+        <Menu.Item key="3" onClick={() => {this.changeWindow('userList')}}>
           <Icon type="upload" />
           <span>User Center</span>
         </Menu.Item>

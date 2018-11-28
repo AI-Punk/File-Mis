@@ -1,4 +1,5 @@
-import fetch from 'dva/fetch'
+// import fetch from 'dva/fetch'
+import fetch from './mock/index'
 export default {
 
   namespace: 'manager',
@@ -24,7 +25,7 @@ export default {
     },
     *postFile(action, {call, put}) {
       // handle both create and update
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/postFile', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -37,7 +38,7 @@ export default {
     },
     *postUser(action, {call, put}) {
       // handle both create and update
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/postUser', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -49,25 +50,25 @@ export default {
       }
     },
     *getFileList(action, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/getFileList', {
         method: 'get'
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {fileList: result.data.fileList} })
+        yield put({ type: 'save', payload: {fileList: result.data} })
       }
     },
     *getUserList(action, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/getUserList', {
         method: 'get'
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {userList: result.data.userList} })
+        yield put({ type: 'save', payload: {userList: result.data} })
       }
     },
     *getAuthFileList({user}, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/getAuthFileList', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -76,11 +77,11 @@ export default {
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authFileList: result.data.authFileList} })
+        yield put({ type: 'save', payload: {authFileList: result.data} })
       }
     },
     *getAuthUserList({file}, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/getAuthUserList', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -89,11 +90,11 @@ export default {
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authUserList: result.data.authUserList} })
+        yield put({ type: 'save', payload: {authUserList: result.data} })
       }
     },
     *postAuthFileList({user, authFileList}, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/postAuthFileList', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -102,11 +103,11 @@ export default {
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authFileList: result.data.authFileList} })
+        yield put({ type: 'save', payload: {authFileList: result.data} })
       }
     },
     *postAuthUserList({file, authUserList}, {call, put}) {
-      let res = yield call(fetch, '/api.center', {
+      let res = yield call(fetch, '//api.center/postAuthUserList', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -115,7 +116,7 @@ export default {
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authUserList: result.data.authUserList} })
+        yield put({ type: 'save', payload: {authUserList: result.data} })
       }
     }
   },

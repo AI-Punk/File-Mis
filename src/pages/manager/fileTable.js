@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table } from 'antd'
+import { Table, Divider } from 'antd'
 const columns = [
   {
     title: 'title',
@@ -12,9 +12,20 @@ const columns = [
     key: 'type'
   },
   {
-    title: 'date',
-    dataIndex: 'date',
-    key: 'date'
+    title: 'createDate',
+    dataIndex: 'createDate',
+    key: 'createDate'
+  },
+  {
+    title: 'Action',
+    key: 'action',
+    render: (text, record) => (
+      <span>
+        <a>Edit</a>
+        <Divider type="vertical" />
+        <a>Delete</a>
+      </span>
+    )
   }
 ]
 class FileTable extends Component {

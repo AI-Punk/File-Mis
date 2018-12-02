@@ -13,7 +13,7 @@ export default {
     authFileList: [],
     currentUser: 0,
     currentFile: 0,
-    currentWindow: 'user'
+    currentWindow: 'home'
   },
 
   subscriptions: {

@@ -12,7 +12,7 @@ class MainMenu extends Component {
   render () {
     return (
       <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-        <Menu.Item key="1">
+        <Menu.Item key="1" onClick={() => {this.changeWindow('home')}}>
           <Icon type="user" />
           <span>Home Page</span>
         </Menu.Item>

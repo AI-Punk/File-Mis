@@ -6,7 +6,7 @@ for (let i = 0; i < 10; i++) {
     createDate: '2018-11-' + i,
     content: 'this is a test file',
     creater: 'root',
-    type: 'doc'
+    type: 'pdf'
   })
 }
 

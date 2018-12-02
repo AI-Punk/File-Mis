@@ -4,6 +4,8 @@ import FileTable from './fileTable'
 import UserTable from './userTable'
 import FileInfo from './file'
 import UserInfo from './user'
+import DisplayPage from './home/display'
+import HomePage from './home/index'
 // import ResourceSegment from './resource/index.js'
 // import VideoSegment from './video/index.js'
 // import PageLocation from './pageLocation.js'
@@ -14,6 +16,8 @@ function getSegment (seg, props) {
   let currentUser = props.currentUser > -1 ? props.userInfo : {}
   let currentFile = props.currentFile > -1 ? props.fileInfo : {}
   const Segments = {
+    'home': <HomePage />,
+    'display': <DisplayPage />,
     'fileList': <FileTable dataSource={props.fileList} dispatch={props.dispatch} />,
     'userList': <UserTable dataSource={props.userList} dispatch={props.dispatch} />,
     'userInfo': <UserInfo 

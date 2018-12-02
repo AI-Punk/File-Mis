@@ -1,16 +1,4 @@
-const listData = []
-for (let i = 0; i < 23; i++) {
-  listData.push({
-    index: i,
-    href: 'http://ant.design',
-    title: `ant design part ${i}`,
-    type: '',
-    src: '',
-    avatar: 'https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png',
-    description: 'Ant Design, a design language for background applications, is refined by Ant UED Team.',
-    content: 'We supply a series of design principles, practical patterns and high quality design resources (Sketch and Axure), to help people create their product prototypes beautifully and efficiently.',
-  });
-}
+import fetch from './mock/index'
 export default {
 
   namespace: 'home',
@@ -18,7 +6,8 @@ export default {
   state: {
     currentFile: 0,
     currentWindow: 0,
-    fileList: listData
+    fileInfo: {},
+    fileList: []
   },
 
   subscriptions: {
@@ -30,6 +19,39 @@ export default {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
       yield put({ type: 'save' });
     },
+    *getFileList ({payload}, {call, put}) {
+      let res = yield call(fetch, '//api.center/getFileList', {
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(payload)
+      })
+      let result = yield res.json()
+      if (result.success) {
+        put({
+          type: 'save',
+          payload: {
+            fileList: result.data
+          }
+        })
+      }
+    },
+    *getFile ({payload}, {call, put}) {
+      let res = yield call(fetch, '//api.center/getFile', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(payload)
+      })
+      let result = yield res.json()
+      if (result.success) {
+        put({
+          type: 'save',
+          fileInfo: result.data
+        })
+      }
+    }
   },
 
   reducers: {

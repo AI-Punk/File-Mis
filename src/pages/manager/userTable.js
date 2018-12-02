@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table, Divider } from 'antd'
+import { Table, Divider, Button } from 'antd'
 function columnWrapper (self) {
   return [
     {
@@ -31,17 +31,34 @@ class UserTable extends Component {
     console.log('edit', record)
     let index = this.props.dataSource.indexOf(record)
     this.props.dispatch({
+      type: 'manager/getUser',
+      payload: {
+        userId: record.id
+      }
+    })
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentUser: index
+      }
+    })
+  }
+  addUser = () => {
+    this.props.dispatch({
       type: 'manager/save',
       payload: {
         currentWindow: 'userInfo',
-        currentUser: index
+        currentFile: -1
       }
     })
   }
   render () {
     const {dataSource} = this.props
     return (
-      <Table columns={columnWrapper(this)} dataSource={dataSource} />
+      <div>
+        <Button type="primary" icon="plus" onClick={this.addUser}>Add User</Button>
+        <Table columns={columnWrapper(this)} dataSource={dataSource} />
+      </div>
     )
   }
 }

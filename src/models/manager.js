@@ -7,6 +7,8 @@ export default {
   state: {
     userList: [],
     fileList: [],
+    userInfo: {},
+    fileInfo: {},
     authUserList: [],
     authFileList: [],
     currentUser: 0,
@@ -23,26 +25,28 @@ export default {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
       yield put({ type: 'save' });
     },
-    *postFile(action, {call, put}) {
+    *postFile({ payload }, {call, put}) {
       // handle both create and update
       let res = yield call(fetch, '//api.center/postFile', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(payload)
       })
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
       }
     },
-    *postUser(action, {call, put}) {
+    *postUser({ payload }, {call, put}) {
       // handle both create and update
       let res = yield call(fetch, '//api.center/postUser', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
-        }
+        },
+        body: JSON.stringify(payload)
       })
       let result = yield res.json()
       if (result.success) {
@@ -67,56 +71,44 @@ export default {
         yield put({ type: 'save', payload: {userList: result.data} })
       }
     },
-    *getAuthFileList({user}, {call, put}) {
-      let res = yield call(fetch, '//api.center/getAuthFileList', {
+    *getUser({ payload }, {call, put}) {
+      const { userId } = payload
+      let res = yield call(fetch, '//api.center/getUser', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({user})
+        body: JSON.stringify({userId})
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authFileList: result.data} })
+        yield put({
+          type: 'save',
+          payload: {
+            currentWindow: 'userInfo',
+            userInfo: result.data
+          }
+        })
       }
     },
-    *getAuthUserList({file}, {call, put}) {
-      let res = yield call(fetch, '//api.center/getAuthUserList', {
+    *getFile({ payload }, {call, put}) {
+      const { fileId } = payload
+      let res = yield call(fetch, '//api.center/getFile', {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify({file})
+        body: JSON.stringify({fileId})
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'save', payload: {authUserList: result.data} })
-      }
-    },
-    *postAuthFileList({user, authFileList}, {call, put}) {
-      let res = yield call(fetch, '//api.center/postAuthFileList', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({user, authFileList})
-      })
-      let result = yield res.json()
-      if (result.success) {
-        yield put({ type: 'save', payload: {authFileList: result.data} })
-      }
-    },
-    *postAuthUserList({file, authUserList}, {call, put}) {
-      let res = yield call(fetch, '//api.center/postAuthUserList', {
-        method: 'post',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({file, authUserList})
-      })
-      let result = yield res.json()
-      if (result.success) {
-        yield put({ type: 'save', payload: {authUserList: result.data} })
+        yield put({
+          type: 'save',
+          payload: {
+            currentWindow: 'fileInfo',
+            fileInfo: result.data
+          }
+        })
       }
     }
   },

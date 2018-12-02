@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import MainMenu from './menu'
 import FileTable from './fileTable'
 import UserTable from './userTable'
+import FileInfo from './file'
+import UserInfo from './user'
 // import ResourceSegment from './resource/index.js'
 // import VideoSegment from './video/index.js'
 // import PageLocation from './pageLocation.js'
@@ -9,9 +11,19 @@ import { Layout, Icon } from 'antd';
 const { Header, Sider, Content } = Layout;
 // const Segments = [<ResourceSegment />, <VideoSegment />]
 function getSegment (seg, props) {
+  let currentUser = props.currentUser > -1 ? props.userInfo : {}
+  let currentFile = props.currentFile > -1 ? props.fileInfo : {}
   const Segments = {
     'fileList': <FileTable dataSource={props.fileList} dispatch={props.dispatch} />,
-    'userList': <UserTable dataSource={props.userList} dispatch={props.dispatch} />
+    'userList': <UserTable dataSource={props.userList} dispatch={props.dispatch} />,
+    'userInfo': <UserInfo 
+      {...currentUser}
+      dataSource={props.fileList}
+      dispatch={props.dispatch} />,
+    'fileInfo': <FileInfo
+      {...currentFile}
+      dataSource={props.userList}
+      dispatch={props.dispatch} />
   }
   return Segments[seg]
 }

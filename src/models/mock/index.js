@@ -1,5 +1,8 @@
 import userList from './userList'
 import fileList from './fileList'
+import user from './user'
+import file from './file'
+import token from './token'
 const mock = {
   '//api.center/postUser': userList,
   '//api.center/postFile': fileList,
@@ -8,8 +11,10 @@ const mock = {
   '//api.center/getAuthFileList': fileList,
   '//api.center/getAuthUserList': userList,
   '//api.center/postAuthUserList': userList,
-  '//api.center/getUser': userList,
-  '//api.center/getFile': fileList
+  '//api.center/getUser': user,
+  '//api.center/getFile': file,
+  '//api.center/login': token,
+  '//api.center/register': token
 }
 class MockData {
   constructor (props) {

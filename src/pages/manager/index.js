@@ -6,15 +6,22 @@ import FileInfo from './file'
 import UserInfo from './user'
 import DisplayPage from './home/display'
 import HomePage from './home/index'
+import FalsePage from './404'
 // import ResourceSegment from './resource/index.js'
 // import VideoSegment from './video/index.js'
 // import PageLocation from './pageLocation.js'
 import { Layout, Icon } from 'antd';
+import {cookie} from 'cookie_js'
 const { Header, Sider, Content } = Layout;
 // const Segments = [<ResourceSegment />, <VideoSegment />]
 function getSegment (seg, props) {
   let currentUser = props.currentUser > -1 ? props.userInfo : {}
   let currentFile = props.currentFile > -1 ? props.fileInfo : {}
+  let isManager = cookie.get('isManager')
+  console.log('cookie', isManager)
+  if (isManager === 'false' && seg !== 'home') {
+    seg = '404'
+  }
   const Segments = {
     'home': <HomePage />,
     'display': <DisplayPage />,
@@ -27,7 +34,8 @@ function getSegment (seg, props) {
     'fileInfo': <FileInfo
       {...currentFile}
       dataSource={props.userList}
-      dispatch={props.dispatch} />
+      dispatch={props.dispatch} />,
+    '404': <FalsePage />
   }
   return Segments[seg]
 }

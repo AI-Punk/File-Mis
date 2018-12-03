@@ -1,4 +1,4 @@
 export default {
-  success: true,
-  data: 'akdbcuhiuhriuvueru39'
+  token: 'akdbcuhiuhriuvueru39',
+  isManager: true
 }

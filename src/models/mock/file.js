@@ -17,11 +17,10 @@ export default {
   title: 'MIS-file-test',
   content: 'this is a simple test file :)',
   type: 'pdf',
-  limit: 0.6,
   src: 'http://localhost:2000/files/testpdf.pdf',
   createDate: '2018-11-30',
   authUserList: [
-    { id: 0 },
-    { id: 3 }
+    { id: 0, limit: 0.8 },
+    { id: 3, limit: 0.2 }
   ]
 } 

@@ -4,7 +4,7 @@ export default {
   email: 'Alice@bjtu.com',
   createDate: '2018-11-30',
   authFileList: [
-    { id: 2 },
-    { id: 3 }
+    { id: 2, limit: 0.1 },
+    { id: 3, limit: 0.4 }
   ]
 } 

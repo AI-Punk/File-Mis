@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Select, Button, Table, Upload, Icon } from 'antd'
+import { Form, Input, Row, Col, Slider, InputNumber, Button, Table, Upload, Icon } from 'antd'
 const FormItem = Form.Item
 const Dragger = Upload.Dragger
 function columnWrapper (self) {
@@ -37,9 +37,22 @@ class FileInfo extends Component {
     }).filter(item => {
       return item >= 0
     })
+    let mapAuthUserList = dataSource.map(record => {
+      let limit = 0
+      let findIndex = authUserList.findIndex(item => {return item.id === record.id})
+      if (findIndex > -1) {
+        limit = authUserList[findIndex].limit
+      }
+      return {
+        id: record.id,
+        limit
+      }
+    })
+    console.log(' mapAuthUserList', mapAuthUserList)
     this.state = {
       id,
       selectedRowKeys,
+      authUserList: mapAuthUserList,
       title,
       content,
       file: null
@@ -63,22 +76,26 @@ class FileInfo extends Component {
     const {
       id,
       selectedRowKeys,
+      authUserList,
       title,
       content
     } = this.state
     const { dataSource } = this.props
-    let authUserList = selectedRowKeys.map(item => {
-      return {
-        id: dataSource[item]
-      }
+    let selectedRowKeysToRecords = selectedRowKeys.map(item => {
+      return {id: dataSource[item].id}
+    })
+    let mapAuthUserList = authUserList.filter(item => {
+      return item.limit > 0
     }).filter(item => {
-      return typeof item.id !== 'undefined'
+      return selectedRowKeysToRecords.findIndex(record => {
+        return record.id === item.id
+      }) > -1
     })
     this.props.dispatch({
       type: 'manager/postFile',
       payload: {
         id,
-        authUserList,
+        authUserList: mapAuthUserList,
         title,
         content
       }
@@ -102,9 +119,45 @@ class FileInfo extends Component {
       content: e.target.value
     })
   }
+  changeLimit = (index, value) => {
+    const {authUserList} = this.state
+    authUserList[index].limit = value
+    this.setState({
+      limit: authUserList
+    })
+  }
   onSelectChange = (selectedRowKeys) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
+  }
+  expandedRowRender = (record, index) => {
+    const {authUserList, selectedRowKeys} = this.state
+    if (selectedRowKeys.indexOf(index) > -1) {
+      let limit = authUserList[index].limit
+      return (<Row>
+        <Col span={12}>
+          <Slider
+            min={0}
+            max={1}
+            onChange={(value) => {this.changeLimit(index, value)}}
+            value={typeof limit === 'number' ? limit : 0}
+            step={0.01}
+          />
+        </Col>
+        <Col span={4}>
+          <InputNumber
+            min={0}
+            max={1}
+            style={{ marginLeft: 16 }}
+            step={0.01}
+            value={limit}
+            onChange={(value) => {this.changeLimit(index, value)}}
+          />
+        </Col>
+      </Row>)
+    } else {
+      return (<p>choose this row first.</p>)
+    }
   }
   render () {
     const { selectedRowKeys, title, content } = this.state
@@ -135,8 +188,11 @@ class FileInfo extends Component {
           rowSelection={rowSelection} 
           dataSource={dataSource} 
           columns={columnWrapper(this)}
-          pagination={{ pageSize: 10 }} />
-        <Button type="primary">Submit</Button>
+          pagination={{ pageSize: 10 }}
+          rowKey={(record) => record.id}
+          expandedRowRender={this.expandedRowRender}
+          />
+        <Button onClick={this.submitFile} type="primary">Submit</Button>
       </div>
     )
   }

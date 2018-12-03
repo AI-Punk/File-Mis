@@ -27,6 +27,7 @@ export default {
     },
     *postFile({ payload }, {call, put}) {
       // handle both create and update
+      console.log('postfile', payload)
       let res = yield call(fetch, '//api.center/postFile', {
         method: 'post',
         headers: {

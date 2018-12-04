@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Select, Button, Divider, Table } from 'antd'
+import { Form, Input, Button, Table } from 'antd'
 const FormItem = Form.Item
 // const Option = Select.Option
 function columnWrapper (self) {

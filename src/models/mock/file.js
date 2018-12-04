@@ -17,6 +17,7 @@ export default {
   title: 'MIS-file-test',
   content: 'this is a simple test file :)',
   type: 'pdf',
+  limit: 1,
   src: 'http://localhost:2000/files/testpdf.pdf',
   createDate: '2018-11-30',
   authUserList: [

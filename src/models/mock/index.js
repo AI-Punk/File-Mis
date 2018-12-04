@@ -18,7 +18,6 @@ const mock = {
 }
 class MockData {
   constructor (props) {
-    const {api} = props
     this.data = mock[props.api]
   }
   json () {

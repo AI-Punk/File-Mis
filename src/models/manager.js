@@ -33,6 +33,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify(payload)
       })
       let result = yield res.json()
@@ -47,6 +48,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
+        credentials: "include",
         body: JSON.stringify(payload)
       })
       let result = yield res.json()
@@ -56,7 +58,8 @@ export default {
     },
     *getFileList(action, {call, put}) {
       let res = yield call(fetch, '//api.center/getFileList', {
-        method: 'get'
+        method: 'get',
+        credentials: "include"
       })
       let result = yield res.json()
       if (result.success) {
@@ -65,7 +68,8 @@ export default {
     },
     *getUserList(action, {call, put}) {
       let res = yield call(fetch, '//api.center/getUserList', {
-        method: 'get'
+        method: 'get',
+        credentials: "include"
       })
       let result = yield res.json()
       if (result.success) {
@@ -76,6 +80,7 @@ export default {
       const { userId } = payload
       let res = yield call(fetch, '//api.center/getUser', {
         method: 'post',
+        credentials: "include",
         headers: {
           'Content-Type': 'application/json'
         },
@@ -96,6 +101,7 @@ export default {
       const { fileId } = payload
       let res = yield call(fetch, '//api.center/getFile', {
         method: 'post',
+        credentials: "include",
         headers: {
           'Content-Type': 'application/json'
         },

@@ -102,6 +102,7 @@ class FileInfo extends Component {
     })
   }
   getUploadData = () => {
+    // how to bring cookie ?
     const {id, title, content} = this.state
     return {
       id,

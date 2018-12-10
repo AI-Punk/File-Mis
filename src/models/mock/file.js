@@ -13,7 +13,7 @@
 // }
 
 export default {
-  id: 10,
+  id: 8,
   title: 'MIS-file-test',
   content: 'this is a simple test file :)',
   type: 'pdf',
@@ -21,7 +21,7 @@ export default {
   src: 'http://localhost:2000/files/testpdf.pdf',
   createDate: '2018-11-30',
   authUserList: [
-    { id: 0, limit: 0.8 },
-    { id: 3, limit: 0.2 }
+    { id: 7, limit: 0.8 },
+    { id: 9, limit: 0.2 }
   ]
 } 

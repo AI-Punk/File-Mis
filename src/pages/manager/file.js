@@ -23,7 +23,6 @@ const draggerProps = {
   multiple: true,
   action: getURL('uploadFile')
 };
-console.log('url', draggerProps)
 class FileInfo extends Component {
   constructor (props) {
     super(props)
@@ -34,10 +33,15 @@ class FileInfo extends Component {
       content = '',
       dataSource
     } = props
+    // let selectedRowKeys = authUserList.map(authUser => {
+    //   return dataSource.findIndex(user => {
+    //     return authUser.id === user.id
+    //   })
+    // }).filter(item => {
+    //   return item >= 0
+    // })
     let selectedRowKeys = authUserList.map(authUser => {
-      return dataSource.findIndex(user => {
-        return authUser.id === user.id
-      })
+      return authUser.id
     }).filter(item => {
       return item >= 0
     })
@@ -52,7 +56,6 @@ class FileInfo extends Component {
         limit
       }
     })
-    console.log(' mapAuthUserList', mapAuthUserList)
     this.state = {
       id,
       selectedRowKeys,
@@ -84,9 +87,12 @@ class FileInfo extends Component {
       title,
       content
     } = this.state
-    const { dataSource } = this.props
+    // const { dataSource } = this.props
+    // let selectedRowKeysToRecords = selectedRowKeys.map(item => {
+    //   return {id: dataSource[item].id}
+    // })
     let selectedRowKeysToRecords = selectedRowKeys.map(item => {
-      return {id: dataSource[item].id}
+      return {id: item}
     })
     let mapAuthUserList = authUserList.filter(item => {
       return item.limit > 0
@@ -137,7 +143,10 @@ class FileInfo extends Component {
   }
   expandedRowRender = (record, index) => {
     const {authUserList, selectedRowKeys} = this.state
-    if (selectedRowKeys.indexOf(index) > -1) {
+    // let findIndex = authUserList.findIndex(item => {
+    //   return item.id === record.id
+    // })
+    if (selectedRowKeys.indexOf(record.id) > -1) {
       let limit = authUserList[index].limit
       return (<Row>
         <Col span={12}>

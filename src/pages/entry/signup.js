@@ -10,7 +10,8 @@ class Signup extends Component {
   }
   register = () => {
     this.props.dispatch({
-      type: 'entry/register'
+      type: 'entry/register',
+      payload: this.state
     })
   }
   setFormField = (ev, field) => {
@@ -35,7 +36,7 @@ class Signup extends Component {
               onChange={(ev) => {this.setFormField(ev, 'password')}} value={password}
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />} type="password" placeholder="Password" />
         </FormItem>
-        <FormItem validateStatus={password === repassword > 0 ? 'success': 'error'}
+        <FormItem validateStatus={password === repassword ? 'success': 'error'}
           help="Should be the same with password.">  
             <Input
               onChange={(ev) => {this.setFormField(ev, 'repassword')}} value={repassword}

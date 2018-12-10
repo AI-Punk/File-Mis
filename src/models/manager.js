@@ -129,7 +129,7 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            currentWindow: 'fileInfo',
+            currentWindow: 'display',
             fileInfo: result.data
           }
         })

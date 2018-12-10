@@ -21,7 +21,8 @@ function columnWrapper (self) {
 const draggerProps = {
   name: 'file',
   multiple: true,
-  action: getURL('uploadFile')
+  action: getURL('uploadFile'),
+  withCredentials: true
 };
 class FileInfo extends Component {
   constructor (props) {

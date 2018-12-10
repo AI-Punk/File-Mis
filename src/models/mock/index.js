@@ -3,18 +3,20 @@ import fileList from './fileList'
 import user from './user'
 import file from './file'
 import token from './token'
+import Config from '../../config'
+const {getURL} = Config
 const mock = {
-  '//api.center/postUser': userList,
-  '//api.center/postFile': fileList,
-  '//api.center/getUserList': userList,
-  '//api.center/getFileList': fileList,
-  '//api.center/getAuthFileList': fileList,
-  '//api.center/getAuthUserList': userList,
-  '//api.center/postAuthUserList': userList,
-  '//api.center/getUser': user,
-  '//api.center/getFile': file,
-  '//api.center/login': token,
-  '//api.center/register': token
+  [getURL('postUser')]: userList,
+  [getURL('postFile')]: fileList,
+  [getURL('getUserList')]: userList,
+  [getURL('getFileList')]: fileList,
+  [getURL('getAuthFileList')]: fileList,
+  [getURL('getAuthUserList')]: userList,
+  [getURL('postAuthUserList')]: userList,
+  [getURL('getUser')]: user,
+  [getURL('getFile')]: file,
+  [getURL('login')]: token,
+  [getURL('register')]: token
 }
 class MockData {
   constructor (props) {

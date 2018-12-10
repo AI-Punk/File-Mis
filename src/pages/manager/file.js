@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
 import { Form, Input, Row, Col, Slider, InputNumber, Button, Table, Upload, Icon } from 'antd'
+import Config from '../../config'
 const FormItem = Form.Item
 const Dragger = Upload.Dragger
+const {getURL} = Config
 function columnWrapper (self) {
   return [
     {
@@ -18,8 +20,10 @@ function columnWrapper (self) {
 }
 const draggerProps = {
   name: 'file',
-  multiple: true
+  multiple: true,
+  action: getURL('uploadFile')
 };
+console.log('url', draggerProps)
 class FileInfo extends Component {
   constructor (props) {
     super(props)

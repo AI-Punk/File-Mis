@@ -40,11 +40,11 @@ class ResourceSegment extends Component {
           pageSize,
         }}
         dataSource={this.props.fileList}
-        footer={<div><b>ant design</b> footer part</div>}
+        footer={<div><b>File List</b> page</div>}
         renderItem={(item, index) => (
           <List.Item
             key={item.title}
-            actions={[<IconText type="user" text="156" />, <IconText type="calendar" text="156" />, <IconText type="video-camera" text="2" />]}
+            actions={[<IconText type="user" text="root" />, <IconText type="calendar" text={item.createDate} />, <IconText type="file" text={item.type} />]}
           >
             <List.Item.Meta
               avatar={<Avatar src={item.avatar} />}

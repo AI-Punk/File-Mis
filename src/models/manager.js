@@ -1,5 +1,8 @@
-// import fetch from 'dva/fetch'
-import fetch from './mock/index'
+import fetch from 'dva/fetch'
+// import fetch from './mock/index'
+import {message} from 'antd'
+import Config from '../config'
+const {getURL} = Config
 export default {
 
   namespace: 'manager',
@@ -28,7 +31,7 @@ export default {
     *postFile({ payload }, {call, put}) {
       // handle both create and update
       console.log('postfile', payload)
-      let res = yield call(fetch, '//api.center/postFile', {
+      let res = yield call(fetch, getURL('postFile'), {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -39,11 +42,15 @@ export default {
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
+        yield put({ type: 'save', payload: {currentWindow: 'fileList'} })
+        message.success('success!')
+      } else {
+        message.error('[Server Error| postFile]:' + result.data)
       }
     },
     *postUser({ payload }, {call, put}) {
       // handle both create and update
-      let res = yield call(fetch, '//api.center/postUser', {
+      let res = yield call(fetch, getURL('postUser'), {
         method: 'post',
         headers: {
           'Content-Type': 'application/json'
@@ -54,31 +61,39 @@ export default {
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
+        yield put({ type: 'save', payload: {currentWindow: 'userList'} })
+        message.success('success!')
+      } else {
+        message.error('[Server Error | postUser]:' + result.data)
       }
     },
     *getFileList(action, {call, put}) {
-      let res = yield call(fetch, '//api.center/getFileList', {
+      let res = yield call(fetch, getURL('getFileList'), {
         method: 'get',
         credentials: "include"
       })
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'save', payload: {fileList: result.data} })
+      } else {
+        message.error('[Server Error | getFileList]:' + result.data)
       }
     },
     *getUserList(action, {call, put}) {
-      let res = yield call(fetch, '//api.center/getUserList', {
+      let res = yield call(fetch, getURL('getUserList'), {
         method: 'get',
         credentials: "include"
       })
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'save', payload: {userList: result.data} })
+      } else {
+        message.error('[Server Error | getUserList]:' + result.data)
       }
     },
     *getUser({ payload }, {call, put}) {
       const { userId } = payload
-      let res = yield call(fetch, '//api.center/getUser', {
+      let res = yield call(fetch, getURL('getUser'), {
         method: 'post',
         credentials: "include",
         headers: {
@@ -95,11 +110,13 @@ export default {
             userInfo: result.data
           }
         })
+      } else {
+        message.error('[Server Error | getUser]:' + result.data)
       }
     },
     *getFile({ payload }, {call, put}) {
       const { fileId } = payload
-      let res = yield call(fetch, '//api.center/getFile', {
+      let res = yield call(fetch, getURL('getFile'), {
         method: 'post',
         credentials: "include",
         headers: {
@@ -116,6 +133,8 @@ export default {
             fileInfo: result.data
           }
         })
+      } else {
+        message.error('[Server Error | getFile]:' + result.data)
       }
     }
   },

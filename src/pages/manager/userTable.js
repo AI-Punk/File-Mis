@@ -57,7 +57,7 @@ class UserTable extends Component {
     return (
       <div>
         <Button type="primary" icon="plus" onClick={this.addUser}>Add User</Button>
-        <Table columns={columnWrapper(this)} dataSource={dataSource} />
+        <Table columns={columnWrapper(this)} dataSource={dataSource} rowKey={(record) => record.id} />
       </div>
     )
   }

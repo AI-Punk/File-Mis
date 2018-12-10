@@ -105,17 +105,15 @@ class UserInfo extends Component {
           <FormItem label="email">
             <Input value={email} onChange={this.changeEmail} />
           </FormItem>
-          <FormItem>
-            <Button type="primary">Submit</Button>
-          </FormItem>
         </Form>
         <Table 
           scroll={{ y: 240 }} 
           rowSelection={rowSelection} 
+          rowKey={(record) => record.id}
           dataSource={dataSource} 
           columns={columnWrapper(this)}
           pagination={{ pageSize: 10 }} />
-        <Button type="primary" onChange={this.submitUser}>Submit</Button>
+        <Button type="primary" onClick={this.submitUser}>Submit</Button>
       </div>
     )
   }

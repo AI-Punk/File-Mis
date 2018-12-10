@@ -63,12 +63,19 @@ class UserInfo extends Component {
       username
     })
   }
+  changePassword = (e) => {
+    const password = e.target.value
+    this.setState({
+      password
+    })
+  }
   submitUser = () => {
     const {
       id,
       selectedRowKeys,
       username,
-      email
+      email,
+      password
     } = this.state
     const { dataSource } = this.props
     let authFileList = selectedRowKeys.map(item => {
@@ -81,13 +88,14 @@ class UserInfo extends Component {
       payload: {
         id,
         username,
+        password,
         email,
         authFileList
       }
     })
   }
   render () {
-    const {selectedRowKeys, email, username} = this.state
+    const {selectedRowKeys, email, username, password, id} = this.state
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -100,7 +108,7 @@ class UserInfo extends Component {
             <Input value={username} onChange={this.changeUsername} />
           </FormItem>
           <FormItem label="password">
-            <Input disabled={true} />
+            <Input disabled={id === -1 ? false: true} value={password} onChange={this.changePassword} />
           </FormItem>
           <FormItem label="email">
             <Input value={email} onChange={this.changeEmail} />

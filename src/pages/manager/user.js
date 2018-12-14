@@ -1,7 +1,8 @@
 import React, {Component} from 'react'
-import { Form, Input, Button, Table } from 'antd'
+import { Form, Input, Button, Table, Radio } from 'antd'
 const FormItem = Form.Item
 // const Option = Select.Option
+const RadioGroup = Radio.Group;
 function columnWrapper (self) {
   return [
     {
@@ -44,7 +45,9 @@ class UserInfo extends Component {
       selectedRowKeys,
       username,
       password: '',
-      email
+      email,
+      limitMode: false,
+      limit: 60
     }
   }
   onSelectChange = (selectedRowKeys) => {
@@ -69,13 +72,27 @@ class UserInfo extends Component {
       password
     })
   }
+  changeLimitMode = (e) => {
+    const limitMode = e.target.value
+    this.setState({
+      limitMode
+    })
+  }
+  changeLimit = (e) => {
+    const limit = e.target.value
+    this.setState({
+      limit
+    })
+  }
   submitUser = () => {
     const {
       id,
       selectedRowKeys,
       username,
       email,
-      password
+      password,
+      limit,
+      limitMode
     } = this.state
     const { dataSource } = this.props
     let authFileList = selectedRowKeys.map(item => {
@@ -90,12 +107,13 @@ class UserInfo extends Component {
         username,
         password,
         email,
-        authFileList
+        authFileList,
+        limit: limitMode ? limit : null
       }
     })
   }
   render () {
-    const {selectedRowKeys, email, username, password, id} = this.state
+    const {selectedRowKeys, email, username, password, id, limitMode, limit} = this.state
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -113,6 +131,17 @@ class UserInfo extends Component {
           <FormItem label="email">
             <Input value={email} onChange={this.changeEmail} />
           </FormItem>
+          <FormItem label="limit mode">
+            <RadioGroup value={limitMode} onChange={this.changeLimitMode}>
+              <Radio value={true}>limit</Radio>
+              <Radio value={false}>unlimit</Radio>
+            </RadioGroup>
+          </FormItem>
+          {
+            limitMode ? <FormItem label="access time limit (min)">
+              <Input value={limit} onChange={this.changeLimit} />
+            </FormItem> : null
+          }
         </Form>
         <Table 
           scroll={{ y: 240 }} 

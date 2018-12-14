@@ -8,9 +8,14 @@ function columnWrapper (self) {
       key: 'username'
     },
     {
-      title: 'createDate',
+      title: 'create date',
       dataIndex: 'createDate',
       key: 'createDate'
+    },
+    {
+      title: 'auth time limit',
+      dataIndex: 'limit',
+      key: 'limit'
     },
     {
       title: 'Action',

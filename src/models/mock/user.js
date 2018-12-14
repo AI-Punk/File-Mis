@@ -6,5 +6,6 @@ export default {
   authFileList: [
     { id: 2, limit: 0.1 },
     { id: 3, limit: 0.4 }
-  ]
+  ],
+  limit: 60
 } 

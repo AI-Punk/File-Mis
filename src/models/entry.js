@@ -1,7 +1,7 @@
 import {cookie} from 'cookie_js'
 import { routerRedux } from 'dva/router';
-// import fetch from './mock/index'
-import fetch from 'dva/fetch'
+import fetch from './mock/index'
+// import fetch from 'dva/fetch'
 import {message} from 'antd'
 import Config from '../config'
 const {getURL} = Config

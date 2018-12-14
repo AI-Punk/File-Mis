@@ -1,5 +1,5 @@
-import fetch from 'dva/fetch'
-// import fetch from './mock/index'
+// import fetch from 'dva/fetch'
+import fetch from './mock/index'
 import {message} from 'antd'
 import Config from '../config'
 const {getURL} = Config
@@ -129,7 +129,7 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            currentWindow: 'display',
+            currentWindow: 'fileInfo',
             fileInfo: result.data
           }
         })

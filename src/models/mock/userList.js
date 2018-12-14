@@ -4,7 +4,8 @@ for (let i = 5; i < 10; i++) {
     id: i,
     username: 'user-' + i,
     email: 'user-' + parseInt(Math.random() * 10, 10) + '@bjtu.edu',
-    createDate: '2018-11-' + i
+    createDate: '2018-11-' + i,
+    limit: i%3 ? i * 20 : null
   })
 }
 

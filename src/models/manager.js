@@ -1,5 +1,5 @@
-// import fetch from 'dva/fetch'
-import fetch from './mock/index'
+import fetch from 'dva/fetch'
+// import fetch from './mock/index'
 import {message} from 'antd'
 import Config from '../config'
 const {getURL} = Config
@@ -42,7 +42,7 @@ export default {
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
-        yield put({ type: 'save', payload: {currentWindow: 'fileList'} })
+        yield put({ type: 'save', payload: {currentWindow: 'fileList', fileInfo: result.data} })
         message.success('success!')
       } else {
         message.error('[Server Error| postFile]:' + result.data)
@@ -61,7 +61,7 @@ export default {
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
-        yield put({ type: 'save', payload: {currentWindow: 'userList'} })
+        yield put({ type: 'save', payload: {currentWindow: 'userList' } })
         message.success('success!')
       } else {
         message.error('[Server Error | postUser]:' + result.data)

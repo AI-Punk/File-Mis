@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Row, Col, Slider, InputNumber, Button, Table, Upload, Icon } from 'antd'
+import { Form, Input, Row, Col, Slider, InputNumber, Button, Table, Upload, Icon, message } from 'antd'
 import Config from '../../config'
 const FormItem = Form.Item
 const Dragger = Upload.Dragger
@@ -47,7 +47,7 @@ class FileInfo extends Component {
       return item >= 0
     })
     let mapAuthUserList = dataSource.map(record => {
-      let limit = 0
+      let limit = 1
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
       if (findIndex > -1) {
         limit = authUserList[findIndex].limit
@@ -67,15 +67,22 @@ class FileInfo extends Component {
     }
   }
   onChange = (info) => {
-    const status = info.file.status;
+    const { status , response } = info.file;
     if (status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
     if (status === 'done') {
       console.log(`${info.file.name} file uploaded successfully.`);
-      this.props.dispatch({
-        type: 'getFileList'
-      })
+      if (response.success) {
+        this.setState({
+          id: response.data.id
+        })
+        this.props.dispatch({
+          type: 'getFileList'
+        })
+      } else {
+        message.error('[Upload file fail]' + response.data)
+      }
     } else if (status === 'error') {
       console.log(`${info.file.name} file upload failed.`);
     }

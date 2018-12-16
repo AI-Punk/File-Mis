@@ -18,7 +18,6 @@ function getSegment (seg, props) {
   let currentUser = props.currentUser > -1 ? props.userInfo : {}
   let currentFile = props.currentFile > -1 ? props.fileInfo : {}
   let isManager = cookie.get('isManager')
-  console.log('cookie', isManager)
   if (isManager === 'false' && seg !== 'home') {
     seg = '404'
   }

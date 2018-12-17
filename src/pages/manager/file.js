@@ -32,7 +32,8 @@ class FileInfo extends Component {
       authUserList = [],
       title = '',
       content = '',
-      dataSource
+      dataSource,
+      type = 'null'
     } = props
     // let selectedRowKeys = authUserList.map(authUser => {
     //   return dataSource.findIndex(user => {
@@ -63,7 +64,8 @@ class FileInfo extends Component {
       authUserList: mapAuthUserList,
       title,
       content,
-      file: null
+      file: null,
+      type
     }
   }
   onChange = (info) => {
@@ -73,9 +75,11 @@ class FileInfo extends Component {
     }
     if (status === 'done') {
       console.log(`${info.file.name} file uploaded successfully.`);
+      let type = info.file.name.split('.').slice(-1)[0] || 'null'
       if (response.success) {
         this.setState({
-          id: response.data.id
+          id: response.data.id,
+          type
         })
         this.props.dispatch({
           type: 'getFileList'
@@ -93,7 +97,8 @@ class FileInfo extends Component {
       selectedRowKeys,
       authUserList,
       title,
-      content
+      content,
+      type
     } = this.state
     // const { dataSource } = this.props
     // let selectedRowKeysToRecords = selectedRowKeys.map(item => {
@@ -115,7 +120,8 @@ class FileInfo extends Component {
         id,
         authUserList: mapAuthUserList,
         title,
-        content
+        content,
+        type
       }
     })
   }

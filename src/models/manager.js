@@ -36,7 +36,7 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify(payload)
       })
       let result = yield res.json()
@@ -55,22 +55,56 @@ export default {
         headers: {
           'Content-Type': 'application/json'
         },
-        credentials: "include",
+        credentials: 'include',
         body: JSON.stringify(payload)
       })
       let result = yield res.json()
       if (result.success) {
-        yield put({ type: 'getFileList' })
+        yield put({ type: 'getUserList' })
         yield put({ type: 'save', payload: {currentWindow: 'userList' } })
         message.success('success!')
       } else {
         message.error('[Server Error | postUser]:' + result.data)
       }
     },
+    *deleteFile ({payload}, {call, put}) {
+      let res = yield call(fetch, getURL('deleteFile'), {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      let result = yield res.json()
+      if (result.success) {
+        yield put({ type: 'getFileList' })
+        message.success('success!')
+      } else {
+        message.error('[Server Error| deleteFile]:' + result.data)
+      }
+    },
+    *deleteUser ({payload}, {call, put}) {
+      let res = yield call(fetch, getURL('deleteUser'), {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(payload)
+      })
+      let result = yield res.json()
+      if (result.success) {
+        yield put({ type: 'getUserList' })
+        message.success('success!')
+      } else {
+        message.error('[Server Error| deleteUser]:' + result.data)
+      }
+    },
     *getFileList(action, {call, put}) {
       let res = yield call(fetch, getURL('getFileList'), {
         method: 'get',
-        credentials: "include"
+        credentials: 'include'
       })
       let result = yield res.json()
       if (result.success) {
@@ -82,7 +116,7 @@ export default {
     *getUserList(action, {call, put}) {
       let res = yield call(fetch, getURL('getUserList'), {
         method: 'get',
-        credentials: "include"
+        credentials: 'include'
       })
       let result = yield res.json()
       if (result.success) {
@@ -95,7 +129,7 @@ export default {
       const { userId } = payload
       let res = yield call(fetch, getURL('getUser'), {
         method: 'post',
-        credentials: "include",
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -106,7 +140,6 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            currentWindow: 'userInfo',
             userInfo: result.data
           }
         })
@@ -118,7 +151,7 @@ export default {
       const { fileId } = payload
       let res = yield call(fetch, getURL('getFile'), {
         method: 'post',
-        credentials: "include",
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -129,7 +162,6 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            currentWindow: 'fileInfo',
             fileInfo: result.data
           }
         })

@@ -25,7 +25,7 @@ function columnWrapper (self) {
           {/* <a onClick={self.editCol.bind(self, record)}>Edit</a> */}
           <a onClick={() => {self.editCol(record)}}>Edit</a>
           <Divider type="vertical" />
-          <a>Delete</a>
+          <a onClick={() => {self.deleteUser(record)}}>Delete</a>
         </span>
       )
     }
@@ -44,7 +44,16 @@ class UserTable extends Component {
     this.props.dispatch({
       type: 'manager/save',
       payload: {
+        currentWindow: 'userInfo',
         currentUser: index
+      }
+    })
+  }
+  deleteUser = (record) => {
+    this.props.dispatch({
+      type: 'manager/deleteUser',
+      payload: {
+        id: record.id
       }
     })
   }

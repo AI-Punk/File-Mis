@@ -24,7 +24,7 @@ function columnWrapper (self) {
         <span>
           <a onClick={() => {self.editCol(record)}}>Edit</a>
           <Divider type="vertical" />
-          <a>Delete</a>
+          <a onClick={() => {self.deleteFile(record)}}>Delete</a>
         </span>
       )
     }
@@ -42,7 +42,16 @@ class FileTable extends Component {
     this.props.dispatch({
       type: 'manager/save',
       payload: {
+        currentWindow: 'userInfo',
         currentFile: index
+      }
+    })
+  }
+  deleteFile = (record) => {
+    this.props.dispatch({
+      type: 'manager/deleteFile',
+      payload: {
+        id: record.id
       }
     })
   }

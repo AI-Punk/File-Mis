@@ -127,11 +127,12 @@ class FileInfo extends Component {
   }
   getUploadData = () => {
     // how to bring cookie ?
-    const {id, title, content} = this.state
+    const {id, title, content, type} = this.state
     return {
       id,
       title,
-      content
+      content,
+      type
     }
   }
   changeTitle = (e) => {
@@ -204,7 +205,7 @@ class FileInfo extends Component {
             <Input value={content} onChange={this.changeContent} />
           </FormItem>
         </Form>
-        <Dragger {...draggerProps} data={this.getUploadData}>
+        <Dragger {...draggerProps} onChange={this.onChange} data={this.getUploadData}>
             <p className="ant-upload-drag-icon">
               <Icon type="inbox" />
             </p>

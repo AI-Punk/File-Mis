@@ -42,7 +42,7 @@ class FileTable extends Component {
     this.props.dispatch({
       type: 'manager/save',
       payload: {
-        currentWindow: 'userInfo',
+        currentWindow: 'fileInfo',
         currentFile: index
       }
     })

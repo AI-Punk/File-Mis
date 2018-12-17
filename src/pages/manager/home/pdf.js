@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { Document, Page } from 'react-pdf'
-import { Pagination } from 'antd';
+import { Pagination, message } from 'antd';
 class PDFReader extends Component {
   state = {
     numPages: null,
@@ -8,6 +8,12 @@ class PDFReader extends Component {
   }
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
+  }
+  onDocumentLoadError = (error) => {
+    message.error('Error while loading document! ' + error.message)
+  }
+  onSourceError = (error) => {
+    message.error('Error while retrieving document source! ' + error.message)
   }
   changePage = (page) => {
     let { numPages } = this.state;
@@ -26,6 +32,8 @@ class PDFReader extends Component {
         <Document
           file={this.props.src}
           onLoadSuccess={this.onDocumentLoadSuccess}
+          onLoadError={this.onDocumentLoadError}
+          onSourceError={this.onSourceError}
         >
           <Page width={900} pageNumber={pageNumber} />
         </Document>

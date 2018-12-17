@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Layout } from 'antd'
+import { Layout, message } from 'antd'
 import { connect } from 'dva'
 import PDFReader from './pdf.js'
 import VideoReader from './video.js'
@@ -8,6 +8,14 @@ function readers (type, props) {
   const readerMap = {
     'pdf': <PDFReader {...props} />,
     'mp4': <VideoReader {...props} />
+  }
+  if (typeof type === 'undefined') {
+    message.warning('File type is not defined')
+  } else {
+    type = type.toLowerCase()
+    if (Object.keys(readerMap).indexOf(type) === -1) {
+      message.warning('cannot solve file type of' + type)
+    }
   }
   return readerMap[type]
 }

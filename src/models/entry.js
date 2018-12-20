@@ -21,8 +21,8 @@ export default {
       })
       let result = yield res.json()
       if (result.success) {
-        // cookie.set('token', result.data.token)
-        cookie.set('isManager', result.data.isManager)
+        cookie.set('token', result.data.token, {expires: result.data.expires || 1})
+        cookie.set('isManager', result.data.isManager, {expires: result.data.expires || 1})
         console.log(result, 'result')
         yield put(routerRedux.push('/manager'))
         message.success('login success')

@@ -8,7 +8,7 @@ class VideoReader extends Component {
   }
   render () {
     return (
-      <video ref="video" onTimeUpdate={this.timeLimit} src={this.props.src} controls style={{width: '100%'}}></video>
+      <video ref="video" onTimeUpdate={this.timeLimit} src={this.props.src} controls style={{width: '100%'}} controlslist="nodownload"></video>
     )
   }
 }

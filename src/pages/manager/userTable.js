@@ -70,8 +70,8 @@ class UserTable extends Component {
     const {dataSource} = this.props
     return (
       <div>
-        <Button type="primary" icon="plus" onClick={this.addUser}>Add User</Button>
-        <Table columns={columnWrapper(this)} dataSource={dataSource} rowKey={(record) => record.id} />
+        <Button type="primary" icon="user-add" onClick={this.addUser}>Add User</Button>
+        <Table style={{marginTop: '1rem'}} columns={columnWrapper(this)} dataSource={dataSource} rowKey={(record) => record.id} />
       </div>
     )
   }

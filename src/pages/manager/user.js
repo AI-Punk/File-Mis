@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, Button, Table, Radio } from 'antd'
+import { Form, Input, InputNumber, Button, Table, Radio } from 'antd'
 const FormItem = Form.Item
 // const Option = Select.Option
 const RadioGroup = Radio.Group;
@@ -29,16 +29,11 @@ class UserInfo extends Component {
       id = -1,
       authFileList = [],
       username = '',
-      // password = '',
       email = '',
-      dataSource
+      limit = null
     } = props
     let selectedRowKeys = authFileList.map(authFile => {
-      return dataSource.findIndex(file => {
-        return authFile.id === file.id
-      })
-    }).filter(item => {
-      return item >= 0
+      return authFile.id
     })
     this.state = {
       id,
@@ -46,9 +41,30 @@ class UserInfo extends Component {
       username,
       password: '',
       email,
-      limitMode: false,
-      limit: 60
+      limitMode: limit === null ? false : true,
+      limit: limit === null ? 60 : limit
     }
+  }
+  UNSAFE_componentWillReceiveProps (props) {
+    const {
+      id = -1,
+      authFileList = [],
+      username = '',
+      email = '',
+      limit = null
+    } = props
+    let selectedRowKeys = authFileList.map(authFile => {
+      return authFile.id
+    })
+    this.setState({
+      id,
+      selectedRowKeys,
+      username,
+      password: '',
+      email,
+      limitMode: limit === null ? false : true,
+      limit: limit === null ? 60 : limit
+    })
   }
   onSelectChange = (selectedRowKeys) => {
     console.log('selectedRowKeys changed: ', selectedRowKeys);
@@ -78,8 +94,7 @@ class UserInfo extends Component {
       limitMode
     })
   }
-  changeLimit = (e) => {
-    const limit = e.target.value
+  changeLimit = (limit) => {
     this.setState({
       limit
     })
@@ -94,7 +109,7 @@ class UserInfo extends Component {
       limit,
       limitMode
     } = this.state
-    const { dataSource } = this.props
+    const { dataSource } = this.prop
     let authFileList = selectedRowKeys.map(item => {
       return { id: dataSource[item] }
     }).filter(item => {
@@ -139,7 +154,14 @@ class UserInfo extends Component {
           </FormItem>
           {
             limitMode ? <FormItem label="access time limit (min)">
-              <Input value={limit} onChange={this.changeLimit} />
+              <InputNumber
+                defaultValue={3}
+                min={0}
+                max={365}
+                formatter={value => `${limit}d`}
+                parser={value => value.replace('d', '')}
+                onChange={this.changeLimit}
+              />
             </FormItem> : null
           }
         </Form>

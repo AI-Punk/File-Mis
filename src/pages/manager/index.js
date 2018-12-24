@@ -4,6 +4,7 @@ import FileTable from './fileTable'
 import UserTable from './userTable'
 import FileInfo from './file'
 import UserInfo from './user'
+import UploadPage from './upload/index'
 import DisplayPage from './home/display'
 import HomePage from './home/index'
 import FalsePage from './404'
@@ -15,11 +16,14 @@ import {cookie} from 'cookie_js'
 const { Header, Sider, Content } = Layout;
 // const Segments = [<ResourceSegment />, <VideoSegment />]
 function getSegment (seg, props) {
+  const allowNormalUser = ['home', 'display', '404']
   let currentUser = props.currentUser > -1 ? props.userInfo : {}
   let currentFile = props.currentFile > -1 ? props.fileInfo : {}
   let isManager = cookie.get('isManager')
-  if (isManager === 'false' && seg !== 'home') {
-    seg = '404'
+  if (isManager === 'false') {
+    if (allowNormalUser.indexOf(seg) === -1) {
+      seg = '404'
+    }
   }
   const Segments = {
     'home': <HomePage />,
@@ -34,6 +38,7 @@ function getSegment (seg, props) {
       {...currentFile}
       dataSource={props.userList}
       dispatch={props.dispatch} />,
+    'upload': <UploadPage userList={props.userList} dispatch={props.dispatch} />,
     '404': <FalsePage />
   }
   return Segments[seg]
@@ -78,10 +83,12 @@ class ManagerPage extends Component {
               onClick={this.toggle}
             />
           </Header>
-          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
+          <Content>
+          <div style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 280 }}>
           {
             getSegment(this.props.currentWindow, this.props)
           }
+          </div>
           </Content>
         </Layout>
       </Layout>

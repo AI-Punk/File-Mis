@@ -59,7 +59,7 @@ class FileTable extends Component {
     this.props.dispatch({
       type: 'manager/save',
       payload: {
-        currentWindow: 'fileInfo',
+        currentWindow: 'upload',
         currentFile: -1
       }
     })
@@ -68,8 +68,8 @@ class FileTable extends Component {
     const {dataSource} = this.props
     return (
       <div>
-        <Button type="primary" icon="plus" onClick={this.addFile}>Add</Button>
-        <Table columns={columnWrapper(this)} dataSource={dataSource} rowKey={(record) => record.id} />
+        <Button type="primary" icon="upload" onClick={this.addFile}>Upload</Button>
+        <Table style={{marginTop: '1rem'}} columns={columnWrapper(this)} dataSource={dataSource} rowKey={(record) => record.id} />
       </div>
     )
   }

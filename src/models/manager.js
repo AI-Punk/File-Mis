@@ -42,8 +42,8 @@ export default {
       let result = yield res.json()
       if (result.success) {
         yield put({ type: 'getFileList' })
-        yield put({ type: 'save', payload: {currentWindow: 'fileList', fileInfo: result.data} })
-        message.success('success!')
+        yield put({ type: 'save', payload: {fileInfo: result.data} })
+        message.success('[Edit File Info]success!')
       } else {
         message.error('[Server Error| postFile]:' + result.data)
       }

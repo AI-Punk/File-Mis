@@ -47,7 +47,7 @@ class ResourceSegment extends Component {
             actions={[<IconText type="user" text="root" />, <IconText type="calendar" text={item.createDate} />, <IconText type="file" text={item.type} />]}
           >
             <List.Item.Meta
-              avatar={<Avatar src={item.avatar} />}
+              avatar={<Icon type="file-pdf" />}
               title={<a onClick={() => {this.enterFile(item.id)}}>{item.title}</a>}
               description={item.description}
             />

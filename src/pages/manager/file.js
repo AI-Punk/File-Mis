@@ -1,9 +1,6 @@
 import React, {Component} from 'react'
-import { Form, Input, Row, Col, Slider, InputNumber, Button, Table, Upload, Icon, message } from 'antd'
-import Config from '../../config'
+import { Form, Input, Row, Col, Slider, InputNumber, Button, Table } from 'antd'
 const FormItem = Form.Item
-const Dragger = Upload.Dragger
-const {getURL} = Config
 function columnWrapper (self) {
   return [
     {
@@ -18,12 +15,6 @@ function columnWrapper (self) {
     }
   ]
 }
-const draggerProps = {
-  name: 'file',
-  multiple: true,
-  action: getURL('uploadFile'),
-  withCredentials: true
-};
 class FileInfo extends Component {
   constructor (props) {
     super(props)
@@ -35,18 +26,10 @@ class FileInfo extends Component {
       dataSource,
       type = 'null'
     } = props
-    // let selectedRowKeys = authUserList.map(authUser => {
-    //   return dataSource.findIndex(user => {
-    //     return authUser.id === user.id
-    //   })
-    // }).filter(item => {
-    //   return item >= 0
-    // })
     let selectedRowKeys = authUserList.map(authUser => {
       return authUser.id
-    }).filter(item => {
-      return item >= 0
     })
+    console.log('init select', selectedRowKeys, authUserList)
     let mapAuthUserList = dataSource.map(record => {
       let limit = 1
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
@@ -68,28 +51,38 @@ class FileInfo extends Component {
       type
     }
   }
-  onChange = (info) => {
-    const { status , response } = info.file;
-    if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
-    }
-    if (status === 'done') {
-      console.log(`${info.file.name} file uploaded successfully.`);
-      let type = info.file.name.split('.').slice(-1)[0] || 'null'
-      if (response.success) {
-        this.setState({
-          id: response.data.id,
-          type
-        })
-        this.props.dispatch({
-          type: 'getFileList'
-        })
-      } else {
-        message.error('[Upload file fail]' + response.data)
+  UNSAFE_componentWillReceiveProps (props) {
+    const {
+      id = -1,
+      authUserList = [],
+      title = '',
+      content = '',
+      dataSource,
+      type = 'null'
+    } = props
+    let selectedRowKeys = authUserList.map(authUser => {
+      return authUser.id
+    })
+    let mapAuthUserList = dataSource.map(record => {
+      let limit = 1
+      let findIndex = authUserList.findIndex(item => {return item.id === record.id})
+      if (findIndex > -1) {
+        limit = authUserList[findIndex].limit
       }
-    } else if (status === 'error') {
-      console.log(`${info.file.name} file upload failed.`);
-    }
+      return {
+        id: record.id,
+        limit
+      }
+    })
+    this.setState({
+      id,
+      selectedRowKeys,
+      authUserList: mapAuthUserList,
+      title,
+      content,
+      file: null,
+      type
+    })
   }
   submitFile = () => {
     const {
@@ -125,16 +118,6 @@ class FileInfo extends Component {
       }
     })
   }
-  getUploadData = () => {
-    // how to bring cookie ?
-    const {id, title, content, type} = this.state
-    return {
-      id,
-      title,
-      content,
-      type
-    }
-  }
   changeTitle = (e) => {
     this.setState({
       title: e.target.value
@@ -149,7 +132,7 @@ class FileInfo extends Component {
     const {authUserList} = this.state
     authUserList[index].limit = value
     this.setState({
-      limit: authUserList
+      authUserList
     })
   }
   onSelectChange = (selectedRowKeys) => {
@@ -205,14 +188,7 @@ class FileInfo extends Component {
             <Input value={content} onChange={this.changeContent} />
           </FormItem>
         </Form>
-        <Dragger {...draggerProps} onChange={this.onChange} data={this.getUploadData}>
-            <p className="ant-upload-drag-icon">
-              <Icon type="inbox" />
-            </p>
-            <p className="ant-upload-text">Click or drag file to this area to upload</p>
-            <p className="ant-upload-hint">Support for a single or bulk upload. Strictly prohibit from uploading company data or other band files</p>
-          </Dragger>
-        <Table 
+        <Table style={{marginTop: '10px'}}
           scroll={{ y: 240 }} 
           rowSelection={rowSelection} 
           dataSource={dataSource} 

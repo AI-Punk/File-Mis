@@ -109,7 +109,7 @@ class UserInfo extends Component {
       limit,
       limitMode
     } = this.state
-    const { dataSource } = this.prop
+    const { dataSource } = this.props
     let authFileList = selectedRowKeys.map(item => {
       return { id: dataSource[item] }
     }).filter(item => {

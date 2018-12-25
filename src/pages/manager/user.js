@@ -126,6 +126,12 @@ class UserInfo extends Component {
         limit: limitMode ? limit : null
       }
     })
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentWindow: 'userList'
+      }
+    })
   }
   render () {
     const {selectedRowKeys, email, username, password, id, limitMode, limit} = this.state
@@ -133,33 +139,37 @@ class UserInfo extends Component {
       selectedRowKeys,
       onChange: this.onSelectChange,
     };
+    const formLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+    } 
     const {dataSource} = this.props
     return (
       <div>
-        <Form>
-          <FormItem label="username">
+        <Form layout="horizontal">
+          <FormItem {...formLayout} label="username">
             <Input value={username} onChange={this.changeUsername} />
           </FormItem>
-          <FormItem label="password">
+          <FormItem {...formLayout} label="password">
             <Input disabled={id === -1 ? false: true} value={password} onChange={this.changePassword} />
           </FormItem>
-          <FormItem label="email">
+          <FormItem {...formLayout} label="email">
             <Input value={email} onChange={this.changeEmail} />
           </FormItem>
-          <FormItem label="limit mode">
+          <FormItem {...formLayout} label="limit mode">
             <RadioGroup value={limitMode} onChange={this.changeLimitMode}>
               <Radio value={true}>limit</Radio>
               <Radio value={false}>unlimit</Radio>
             </RadioGroup>
           </FormItem>
           {
-            limitMode ? <FormItem label="access time limit (min)">
+            limitMode ? <FormItem {...formLayout} label="time limit">
               <InputNumber
                 defaultValue={3}
                 min={0}
-                max={365}
-                formatter={value => `${limit}d`}
-                parser={value => value.replace('d', '')}
+                max={100000}
+                formatter={value => `${limit}min`}
+                parser={value => value.replace('min', '')}
                 onChange={this.changeLimit}
               />
             </FormItem> : null

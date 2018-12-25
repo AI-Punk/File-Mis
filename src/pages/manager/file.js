@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { Form, Input, Row, Col, Slider, InputNumber, Button, Table } from 'antd'
 const FormItem = Form.Item
+const {TextArea} = Input
 function columnWrapper (self) {
   return [
     {
@@ -117,6 +118,12 @@ class FileInfo extends Component {
         type
       }
     })
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentWindow: 'fileList'
+      }
+    })
   }
   changeTitle = (e) => {
     this.setState({
@@ -177,15 +184,19 @@ class FileInfo extends Component {
       selectedRowKeys,
       onChange: this.onSelectChange,
     };
+    const formLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+    } 
     const {dataSource} = this.props
     return (
       <div>
-        <Form>
-          <FormItem label="title">
+        <Form layout="horizontal">
+          <FormItem {...formLayout} label="title">
             <Input value={title} onChange={this.changeTitle} />
           </FormItem>
-          <FormItem label="content">
-            <Input value={content} onChange={this.changeContent} />
+          <FormItem {...formLayout} label="content">
+            <TextArea value={content} onChange={this.changeContent} />
           </FormItem>
         </Form>
         <Table style={{marginTop: '10px'}}

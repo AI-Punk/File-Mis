@@ -20,7 +20,7 @@ class FileModel {
     this.content = content || this.content
   }
   // userList filter by authUserIds
-  get authUerList () {
+  get authUserList () {
     let selectedRowKeysToRecords = this.authUserIds.map(item => {
       return {id: item}
     })

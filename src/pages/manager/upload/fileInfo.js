@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Form, Table, Input, Row, Col, Slider, InputNumber, Pagination, Button} from 'antd'
 const FormItem = Form.Item
+const {TextArea} = Input
 const columnProps = [
   {
     title: 'username',
@@ -90,13 +91,15 @@ class FileInfo extends Component {
     const {fileList} = this.state
     const {dispatch} = this.props
     fileList.forEach(file => {
+      console.log('auth', file.authUserList, file)
       dispatch({
         type: 'manager/postFile',
         payload: {
           id: file.id,
           title: file.title,
           content: file.content,
-          authUserList: file.authUserList
+          authUserList: file.authUserList,
+          file: file.type
         }
       })
     })
@@ -109,17 +112,21 @@ class FileInfo extends Component {
       selectedRowKeys: authUserIds,
       onChange: this.onSelectChange,
     };
+    const formLayout = {
+      labelCol: { span: 4 },
+      wrapperCol: { span: 14 },
+    } 
     return (
       <div>
-        <Form>
-          <FormItem label="title">
+        <Form layout="horizontal">
+          <FormItem {...formLayout} label="title">
             <Input value={title} onChange={this.changeTitle} />
           </FormItem>
-          <FormItem label="content">
-            <Input value={content} onChange={this.changeContent} />
+          <FormItem {...formLayout} label="content">
+            <TextArea value={content} onChange={this.changeContent} />
           </FormItem>
         </Form>
-        <Table 
+        <Table style={{marginTop: '1rem'}}
           scroll={{ y: 240 }} 
           rowSelection={rowSelection} 
           dataSource={userList} 
@@ -129,7 +136,7 @@ class FileInfo extends Component {
           expandedRowRender={this.expandedRowRender}
           />
         <Pagination defaultCurrent={currentFile + 1} total={fileList.length * 10} onChange={this.changeFile} />
-        <Button type="primary" onClick={this.confirm}>Confirm All</Button>
+        <Button style={{marginTop: '1rem'}} type="primary" onClick={this.confirm}>Confirm All</Button>
       </div>
     )
   }

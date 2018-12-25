@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { List, Avatar, Icon  } from 'antd'
+import { List, Icon  } from 'antd'
 import { connect } from 'dva'
 const IconText = ({ type, text }) => (
   <span>

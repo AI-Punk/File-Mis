@@ -1,6 +1,6 @@
 const Config = {
   host: '//localhost',
-  port: 8001,
+  port: 8000,
   getURL: (service) => {
     return `${Config.host}:${Config.port}/${service}`
   }

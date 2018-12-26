@@ -1,5 +1,5 @@
 const Config = {
-  host: '//ooer.space',
+  host: '//localhost',
   port: 8001,
   getURL: (service) => {
     return `${Config.host}:${Config.port}/${service}`

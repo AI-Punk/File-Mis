@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Layout, message } from 'antd'
 import { connect } from 'dva'
-import PDFReader from './pdf.js'
+import PDFReader from './pdf.better.js'
 import VideoReader from './video.js'
 const { Header, Content } = Layout
 function readers (type, props) {

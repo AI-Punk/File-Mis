@@ -14,6 +14,7 @@ export default {
     *login ({payload}, {put, call}) {
       let res = yield call(fetch, getURL('login'), {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },
@@ -33,6 +34,7 @@ export default {
     *register ({payload}, {put, call}) {
       let res = yield call(fetch, getURL('register'), {
         method: 'POST',
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json'
         },

@@ -1,5 +1,5 @@
 const Config = {
-  host: '//104.168.134.52',
+  host: '//lvmaozi.info',
   port: 8000,
   getURL: (service) => {
     return `${Config.host}:${Config.port}/${service}`

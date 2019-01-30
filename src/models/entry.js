@@ -25,7 +25,7 @@ export default {
         cookie.set('token', result.data.token, {expires: result.data.expires || 1})
         cookie.set('isManager', result.data.isManager, {expires: result.data.expires || 1})
         console.log(result, 'result')
-        yield put(routerRedux.push('/manager'))
+        yield put(routerRedux.push('/'))
         message.success('login success')
       } else {
         message.error('[Login fail] ' + result.data)

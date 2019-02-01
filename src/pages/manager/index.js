@@ -13,6 +13,7 @@ import FalsePage from './404'
 // import PageLocation from './pageLocation.js'
 import { Layout, Icon } from 'antd';
 import {cookie} from 'cookie_js'
+import './index.css'
 const { Header, Sider, Content } = Layout;
 // const Segments = [<ResourceSegment />, <VideoSegment />]
 function getSegment (seg, props) {

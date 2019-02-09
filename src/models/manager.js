@@ -140,7 +140,10 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            userInfo: result.data
+            userInfo: {
+              id: userId,
+              ...result.data
+            }
           }
         })
       } else {
@@ -162,7 +165,10 @@ export default {
         yield put({
           type: 'save',
           payload: {
-            fileInfo: result.data
+            fileInfo: {
+              id: fileId,
+              ...result.data
+            }
           }
         })
       } else {

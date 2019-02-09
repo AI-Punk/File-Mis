@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Form, Input, InputNumber, Button, Table, Radio } from 'antd'
+import { Form, Input, InputNumber, Button, Table, Radio, Row, Col, Slider } from 'antd'
 const FormItem = Form.Item
 // const Option = Select.Option
 const RadioGroup = Radio.Group;
@@ -30,14 +30,27 @@ class UserInfo extends Component {
       authFileList = [],
       username = '',
       email = '',
+      dataSource,
       limit = null
     } = props
     let selectedRowKeys = authFileList.map(authFile => {
       return authFile.id
     })
+    let mapAuthFileList = dataSource.map(record => {
+      let limit = 1
+      let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+      if (findIndex > -1) {
+        limit = authFileList[findIndex].limit || 0
+      }
+      return {
+        id: record.id,
+        limit
+      }
+    })
     this.state = {
       id,
       selectedRowKeys,
+      authFileList: mapAuthFileList,
       username,
       password: '',
       email,
@@ -51,14 +64,27 @@ class UserInfo extends Component {
       authFileList = [],
       username = '',
       email = '',
-      limit = null
+      limit = null,
+      dataSource
     } = props
     let selectedRowKeys = authFileList.map(authFile => {
       return authFile.id
     })
+    let mapAuthFileList = dataSource.map(record => {
+      let limit = 1
+      let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+      if (findIndex > -1) {
+        limit = authFileList[findIndex].limit || 0
+      }
+      return {
+        id: record.id,
+        limit
+      }
+    })
     this.setState({
       id,
       selectedRowKeys,
+      authFileList: mapAuthFileList,
       username,
       password: '',
       email,
@@ -94,9 +120,16 @@ class UserInfo extends Component {
       limitMode
     })
   }
-  changeLimit = (limit) => {
+  changeUserLimit = (limit) => {
     this.setState({
       limit
+    })
+  }
+  changeLimit = (index, value) => {
+    const {authUserList} = this.state
+    authUserList[index].limit = value
+    this.setState({
+      authUserList
     })
   }
   submitUser = () => {
@@ -106,14 +139,19 @@ class UserInfo extends Component {
       username,
       email,
       password,
+      authFileList,
       limit,
       limitMode
     } = this.state
-    const { dataSource } = this.props
-    let authFileList = selectedRowKeys.map(item => {
-      return { id: dataSource[item] }
+    let selectedRowKeysToRecords = selectedRowKeys.map(item => {
+      return {id: item}
+    })
+    let mapAuthFileList = authFileList.filter(item => {
+      return item.limit > 0
     }).filter(item => {
-      return typeof item.id !== 'undefined'
+      return selectedRowKeysToRecords.findIndex(record => {
+        return record.id === item.id
+      }) > -1
     })
     this.props.dispatch({
       type: 'manager/postUser',
@@ -122,7 +160,7 @@ class UserInfo extends Component {
         username,
         password,
         email,
-        authFileList,
+        authFileList: mapAuthFileList,
         limit: limitMode ? limit : null
       }
     })
@@ -132,6 +170,38 @@ class UserInfo extends Component {
         currentWindow: 'userList'
       }
     })
+  }
+  expandedRowRender = (record, index) => {
+    const {authFileList, selectedRowKeys} = this.state
+    // let findIndex = authUserList.findIndex(item => {
+    //   return item.id === record.id
+    // })
+    if (selectedRowKeys.indexOf(record.id) > -1) {
+      let limit = authFileList[index].limit
+      return (<Row>
+        <Col span={12}>
+          <Slider
+            min={0}
+            max={1}
+            onChange={(value) => {this.changeLimit(index, value)}}
+            value={typeof limit === 'number' ? limit : 0}
+            step={0.01}
+          />
+        </Col>
+        <Col span={4}>
+          <InputNumber
+            min={0}
+            max={1}
+            style={{ marginLeft: 16 }}
+            step={0.01}
+            value={limit}
+            onChange={(value) => {this.changeLimit(index, value)}}
+          />
+        </Col>
+      </Row>)
+    } else {
+      return (<p>choose this row first.</p>)
+    }
   }
   render () {
     const {selectedRowKeys, email, username, password, id, limitMode, limit} = this.state
@@ -170,7 +240,7 @@ class UserInfo extends Component {
                 max={100000}
                 formatter={value => `${limit}min`}
                 parser={value => value.replace('min', '')}
-                onChange={this.changeLimit}
+                onChange={this.changeUserLimit}
               />
             </FormItem> : null
           }
@@ -181,6 +251,7 @@ class UserInfo extends Component {
           rowKey={(record) => record.id}
           dataSource={dataSource} 
           columns={columnWrapper(this)}
+          expandedRowRender={this.expandedRowRender}
           pagination={{ pageSize: 10 }} />
         <Button type="primary" onClick={this.submitUser}>Submit</Button>
       </div>

@@ -93,7 +93,6 @@ class UserInfo extends Component {
     })
   }
   onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
   }
   changeEmail = (e) => {
@@ -126,10 +125,10 @@ class UserInfo extends Component {
     })
   }
   changeLimit = (index, value) => {
-    const {authUserList} = this.state
-    authUserList[index].limit = value
+    const {authFileList} = this.state
+    authFileList[index].limit = value
     this.setState({
-      authUserList
+      authFileList
     })
   }
   submitUser = () => {
@@ -153,6 +152,7 @@ class UserInfo extends Component {
         return record.id === item.id
       }) > -1
     })
+    debugger
     this.props.dispatch({
       type: 'manager/postUser',
       payload: {
@@ -173,7 +173,7 @@ class UserInfo extends Component {
   }
   expandedRowRender = (record, index) => {
     const {authFileList, selectedRowKeys} = this.state
-    // let findIndex = authUserList.findIndex(item => {
+    // let findIndex = authFileList.findIndex(item => {
     //   return item.id === record.id
     // })
     if (selectedRowKeys.indexOf(record.id) > -1) {

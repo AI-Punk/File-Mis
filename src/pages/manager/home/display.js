@@ -7,7 +7,9 @@ const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
     'pdf': <PDFReader {...props} />,
-    'mp4': <VideoReader {...props} />
+    'mp4': <VideoReader {...props} />,
+    'avi': <VideoReader {...props} />,
+    'flv': <VideoReader {...props} />
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')

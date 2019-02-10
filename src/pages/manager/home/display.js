@@ -9,7 +9,10 @@ function readers (type, props) {
     'pdf': <PDFReader {...props} />,
     'mp4': <VideoReader {...props} />,
     'avi': <VideoReader {...props} />,
-    'flv': <VideoReader {...props} />
+    'flv': <VideoReader {...props} />,
+    'asf': <VideoReader {...props} />,
+    'wav': <VideoReader {...props} />,
+    'siff': <VideoReader {...props} />
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')

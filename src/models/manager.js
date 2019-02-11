@@ -174,12 +174,74 @@ export default {
       } else {
         message.error('[Server Error | getFile]:' + result.data)
       }
+    },
+    *postFileList({payload}, {call, put}) {
+      const fileList = payload.fileList.map(record => {
+        return {
+          id: record.id,
+          group: record.group
+        }
+      })
+      console.log('fileList', fileList)
+      let res, result;
+      try {
+        res = yield call(fetch, getURL('postFileList'), {
+          method: 'post',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          credentials: 'include',
+          body: JSON.stringify(fileList)
+        })
+        result = yield res.json()
+      } catch (error) {
+        result = {success: false, data: error.toString()}
+      } finally {
+        if (result.success) {
+          message.success('success!')
+        } else {
+          yield put({ type: 'getFileList' })
+          message.error('[Server Error| postFileList]:' + result.data)
+        }
+      }
     }
   },
 
   reducers: {
     save(state, action) {
       return { ...state, ...action.payload };
+    },
+    addFolder (state, {payload}) {
+      const fileList = [...state.fileList]
+      const {group, folderName} = payload
+      fileList.push({
+        id: '_fake_',
+        title: '..',
+        group: group.concat(folderName)
+      })
+      return {
+        ...state,
+        fileList
+      }
+    },
+    moveFile (state, {payload}) {
+      const fileList = [...state.fileList]
+      const {movingIndex, targetGroup} = payload
+      if (typeof movingIndex === 'number') {
+        fileList[movingIndex].group = targetGroup
+      } else if (movingIndex instanceof Array) {
+        fileList.forEach(file => {
+          if (movingIndex.every((g, i) => {
+            return g === file.group[i]
+          })) {
+            file.group = [...targetGroup, ...movingIndex.slice(-1)]
+          }
+        })
+      }
+      return {
+        ...state,
+        fileList
+      }
     },
     displayFile (state, { index }) {
       console.log('model', index)

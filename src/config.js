@@ -1,6 +1,6 @@
 const Config = {
-  // host: '//lvmaozi.info',
-  host: '//localhost',
+  host: '//lvmaozi.info',
+//   host: '//localhost',
   port: 8000,
   // port: 8080,
   getURL: (service) => {

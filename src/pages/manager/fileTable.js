@@ -170,6 +170,12 @@ class FileTable extends Component {
         folderName
       }
     })
+    this.props.dispatch({
+      type: 'manager/postFileList',
+      payload: {
+        fileList: this.props.dataSource
+      }
+    })
     this.hideModal()
   }
   handleMovement = (selectedRowKeys, selectedRows) => {

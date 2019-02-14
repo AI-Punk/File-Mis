@@ -163,17 +163,13 @@ class FileTable extends Component {
     if (hashTree.hasNode(group.concat(folderName))) {
       folderName = folderName + '(1)'
     }
+    console.log('fileList', this.props.dataSource)
     this.props.dispatch({
       type: 'manager/addFolder',
       payload: {
         group,
-        folderName
-      }
-    })
-    this.props.dispatch({
-      type: 'manager/postFileList',
-      payload: {
-        fileList: this.props.dataSource
+        folderName,
+        dataSource: this.props.dataSource
       }
     })
     this.hideModal()
@@ -189,21 +185,14 @@ class FileTable extends Component {
   }
   moveFile = () => {
     const {movingIndex, targetGroup} = this.state
-    console.log('c1', this.props.dataSource)
     this.props.dispatch({
       type: 'manager/moveFile',
       payload: {
         movingIndex,
-        targetGroup
+        targetGroup,
+        dataSource: this.props.dataSource
       }
     })
-    this.props.dispatch({
-      type: 'manager/postFileList',
-      payload: {
-        fileList: this.props.dataSource
-      }
-    })
-    console.log('c2', this.props.dataSource)
     this.hideMove()
   }
   render () {

@@ -5,6 +5,7 @@ import user from './mock/user'
 import file from './mock/file'
 import token from './mock/login'
 import upload from './mock/upload'
+import postFileList from './mock/postFileList'
 export default {
   'POST /postUser': userList,
   'POST /postFile': fileList,
@@ -17,5 +18,6 @@ export default {
   'POST /getFile': file,
   'POST /login': token,
   'POST /register': token,
-  'POST /uploadFile': upload
+  'POST /uploadFile': upload,
+  'POST /postFileList': postFileList
 };

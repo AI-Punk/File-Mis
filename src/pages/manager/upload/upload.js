@@ -31,11 +31,13 @@ class UploadPage extends Component {
   }
   getUploadData = (file) => {
     // how to bring cookie ?
+    const {uploadGroup} = this.props
     return {
       id: -1,
       title: file.name,
       content: file.name,
-      type: file.name.split('.').slice(-1)[0] || 'null'
+      type: file.name.split('.').slice(-1)[0] || 'null',
+      group: uploadGroup
     }
   }
   render () {

@@ -55,9 +55,9 @@ class UploadPage extends Component {
   }
   render () {
     const {step, fileList, allowNext} = this.state
-    const {userList} = this.props
+    const {userList, uploadGroup} = this.props
     const StepPages = [
-      <UploadStep dispatch={this.props.dispatch} updateFileList={this.updateFileList} />,
+      <UploadStep dispatch={this.props.dispatch} updateFileList={this.updateFileList} uploadGroup={uploadGroup} />,
       <FileInfo dispatch={this.props.dispatch} fileList={fileList} userList={userList} allowNext={this.allowNext}/>,
       <FinishPage fileList={fileList} />
     ]

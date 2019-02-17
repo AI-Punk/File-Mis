@@ -14,6 +14,7 @@ export default {
     fileInfo: {},
     authUserList: [],
     authFileList: [],
+    uploadGroup: [],
     currentUser: 0,
     currentFile: 0,
     currentWindow: 'home'

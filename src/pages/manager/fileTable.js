@@ -1,23 +1,26 @@
 import React, {Component} from 'react'
 import { Table, Divider, Button, Tag, Modal, Input, Form } from 'antd'
 import {getRenderTree} from './transTree'
+const COLS = [
+  {
+    title: 'Name',
+    dataIndex: 'name',
+    key: 'name',
+    defaultSortOrder: 'descend',
+    sorter: (a, b) => {
+      if (a > b) {
+        return -1
+      } else if (a === b) {
+        return 0
+      } else {
+        return 1
+      }
+    }
+  }
+]
 function columnWrapper (self) {
   return [
-    {
-      title: 'Name',
-      dataIndex: 'name',
-      key: 'name',
-      defaultSortOrder: 'descend',
-      sorter: (a, b) => {
-        if (a > b) {
-          return -1
-        } else if (a === b) {
-          return 0
-        } else {
-          return 1
-        }
-      },
-    },
+    ...COLS,
     {
       title: 'Type',
       key: 'type',
@@ -50,6 +53,8 @@ function columnWrapper (self) {
               <Button size="small" onClick={() => {self.showModal(record.group)}}>Add Folder</Button>
               <Divider type="vertical" />
               <Button size="small" onClick={() => {self.showMove(record)}}>Move</Button>
+              <Divider type="vertical" />
+              <Button size="small" onClick={() => {self.addFile(record)}}>Upload</Button>
             </span>
           )
         }
@@ -112,13 +117,15 @@ class FileTable extends Component {
       }
     })
   }
-  addFile = () => {
+  addFile = (record) => {
+    const {group = []} = record
     console.log('c1', this.state.fileList)
     this.props.dispatch({
       type: 'manager/save',
       payload: {
         currentWindow: 'upload',
-        currentFile: -1
+        currentFile: -1,
+        uploadGroup: group
       }
     })
   }
@@ -204,7 +211,7 @@ class FileTable extends Component {
     console.log(renderTree, folderTree)
     return (
       <div>
-        <Button type="primary" icon="upload" onClick={this.addFile}>Upload</Button>
+        <Button type="primary" icon="upload" onClick={() => {this.addFile({})}}>Upload</Button>
         <Button type="primary" icon="plus" style={{marginLeft: '10px'}} onClick={() => {this.showModal([])}}>Add Folder</Button>
         <Table style={{marginTop: '1rem'}}
           columns={columnWrapper(this)}
@@ -227,7 +234,7 @@ class FileTable extends Component {
             visible={showMove} title="move to a new place">
             <Table style={{marginTop: '1rem'}}
               rowSelection={rowSelection}
-              columns={columnWrapper(this)}
+              columns={COLS}
               dataSource={[folderTree]}
               rowKey={record => record.id}
               />

@@ -39,7 +39,7 @@ function getSegment (seg, props) {
       {...currentFile}
       dataSource={props.userList}
       dispatch={props.dispatch} />,
-    'upload': <UploadPage userList={props.userList} dispatch={props.dispatch} />,
+    'upload': <UploadPage userList={props.userList} uploadGroup={props.uploadGroup} dispatch={props.dispatch} />,
     '404': <FalsePage />
   }
   return Segments[seg]

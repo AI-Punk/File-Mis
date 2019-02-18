@@ -3,9 +3,11 @@ export default function getFile (req, res) {
     id: 8,
     title: 'MIS-file-test',
     content: 'this is a simple test file :)',
-    type: 'pdf',
+    // type: 'pdf',
+    type: 'jpg',
     limit: 1,
-    src: 'http://localhost:2000/files/testpdf.pdf',
+    // src: 'http://localhost:2000/files/testpdf.pdf',
+    src: 'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/700px-Tsunami_by_hokusai_19th_century.jpg',
     createDate: '2018-11-30',
     authUserList: [
       { id: 'userid-7', limit: 0.8 },

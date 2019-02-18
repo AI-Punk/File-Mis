@@ -12,13 +12,37 @@
   cursor: pointer;
   transition: color .3s;
 }
+.home-page .userMenu {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color .3s;
+  float: right;
+}
 
+.home-menu{
+  box-shadow: 2px 0 6px rgba(0,21,41,.35);
+}
 .home-page .trigger:hover {
   color: #1890ff;
 }
 
 .home-page .logo {
   height: 32px;
-  background: rgba(255,255,255,.2);
   margin: 16px;
+  text-align: center;
+  color: #fff;
+}
+.home-page .logo h1 {
+  display: inline-block;
+  margin: 0 0 0 12px;
+  color: #fff;
+  font-weight: 600;
+  font-size: 20px;
+  font-family: Avenir,Helvetica Neue,Arial,Helvetica,sans-serif;
+  vertical-align: middle;
+}
+.home-page .logo svg {
+  vertical-align: middle;
 }

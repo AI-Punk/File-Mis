@@ -1,6 +1,9 @@
 import React, {Component} from 'react'
-import { Table, Divider, Button, Tag, Modal, Input, Form } from 'antd'
+import { Table, Divider, Button, Tag, Modal, Input, Form, Icon, Tooltip } from 'antd'
 import {getRenderTree} from './transTree'
+const ClickIcon = {
+  cursor: 'pointer'
+}
 const COLS = [
   {
     title: 'Name',
@@ -40,21 +43,41 @@ function columnWrapper (self) {
         if (record.type !== 'folder') {
           return (
             <span>
-              <a onClick={() => {self.editCol(record)}}>Edit</a>
+              <Tooltip title="Edit">
+                <Icon style={ClickIcon} onClick={() => {self.editCol(record)}} type="edit" />
+              </Tooltip>
               <Divider type="vertical" />
-              <a onClick={() => {self.deleteFile(record)}}>Delete</a>
+              <Tooltip title="Delete">
+                <Icon style={ClickIcon} onClick={() => {self.deleteFile(record)}} type="delete" />
+              </Tooltip>
               <Divider type="vertical" />
-              <Button size="small" onClick={() => {self.showMove(record)}}>Move</Button>
+              <Tooltip title="Move">
+                <Button size="small" shape="circle" type="primary" onClick={() => {self.showMove(record)}}>
+                  <Icon style={ClickIcon} type="file-sync" />
+                </Button>
+              </Tooltip>
             </span>
           )
         } else {
           return (
             <span>
-              <Button size="small" onClick={() => {self.showModal(record.group)}}>Add Folder</Button>
+              <Tooltip title="Add Folder">
+                <Button size="small" shape="circle" onClick={() => {self.showModal(record.group)}}>
+                  <Icon type="folder-add" />
+                </Button>
+              </Tooltip>
               <Divider type="vertical" />
-              <Button size="small" onClick={() => {self.showMove(record)}}>Move</Button>
+              <Tooltip title="Move">
+                <Button size="small" shape="circle" type="primary" onClick={() => {self.showMove(record)}}>
+                  <Icon type="file-sync" />
+                </Button>
+              </Tooltip>
               <Divider type="vertical" />
-              <Button size="small" onClick={() => {self.addFile(record)}}>Upload</Button>
+              <Tooltip title="Upload">
+                <Button size="small" shape="circle" onClick={() => {self.addFile(record)}}>
+                  <Icon type="upload" />
+                </Button>
+              </Tooltip>
             </span>
           )
         }

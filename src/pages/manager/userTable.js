@@ -1,5 +1,8 @@
 import React, {Component} from 'react'
-import { Table, Divider, Button } from 'antd'
+import { Table, Divider, Button, Tooltip, Icon } from 'antd'
+const ClickIcon = {
+  cursor: 'pointer'
+}
 function columnWrapper (self) {
   return [
     {
@@ -22,10 +25,13 @@ function columnWrapper (self) {
       key: 'action',
       render: (text, record, index) => (
         <span>
-          {/* <a onClick={self.editCol.bind(self, record)}>Edit</a> */}
-          <a onClick={() => {self.editCol(record)}}>Edit</a>
+          <Tooltip title="Edit">
+            <Icon style={ClickIcon} onClick={() => {self.editCol(record)}} type="edit" />
+          </Tooltip>
           <Divider type="vertical" />
-          <a onClick={() => {self.deleteUser(record)}}>Delete</a>
+          <Tooltip title="Delete">
+            <Icon style={ClickIcon} onClick={() => {self.deleteUser(record)}} type="delete" />
+          </Tooltip>
         </span>
       )
     }

@@ -1,4 +1,5 @@
 import fetch from 'dva/fetch'
+import { routerRedux } from 'dva/router';
 // import fetch from './mock/index'
 import {message} from 'antd'
 import Config from '../config'
@@ -28,6 +29,19 @@ export default {
   effects: {
     *fetch({ payload }, { call, put }) {  // eslint-disable-line
       yield put({ type: 'save' });
+    },
+    *logout({payload}, {call, put}) {
+      let res = yield call(fetch, getURL('logOut'), {
+        method: 'GET',
+        credentials: 'include'
+      })
+      let result = yield res.json()
+      if (result.success) {
+        yield put(routerRedux.push('/entry'))
+        message.success('logout success!')
+      } else {
+        message.error('[logout fail]:' + result.data)
+      }
     },
     *postFile({ payload }, {call, put}) {
       // handle both create and update

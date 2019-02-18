@@ -6,6 +6,7 @@ import file from './mock/file'
 import token from './mock/login'
 import upload from './mock/upload'
 import postFileList from './mock/postFileList'
+import logout from './mock/logout'
 export default {
   'POST /postUser': userList,
   'POST /postFile': fileList,
@@ -19,5 +20,6 @@ export default {
   'POST /login': token,
   'POST /register': token,
   'POST /uploadFile': upload,
-  'POST /postFileList': postFileList
+  'POST /postFileList': postFileList,
+  'GET /logOut': logout
 };

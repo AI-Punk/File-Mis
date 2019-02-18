@@ -7,7 +7,7 @@ export default function getFileList (req, res) {
       title: 'file-' + i,
       createDate: '2018-11-' + i,
       content: 'this is a test file',
-      creater: 'root',
+      creator: 'root',
       type: 'pdf',
       group: randomGroup('Folder', 3)
     })

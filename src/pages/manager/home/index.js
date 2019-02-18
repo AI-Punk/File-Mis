@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { List, Icon  } from 'antd'
+import { List, Icon, Input, Button } from 'antd'
 import { connect } from 'dva'
+const Search = Input.Search
 const IconText = ({ type, text }) => (
   <span>
     <Icon type={type} style={{ marginRight: 8 }} />
@@ -12,7 +13,8 @@ class ResourceSegment extends Component {
   constructor () {
     super()
     this.state = {
-      page: 0
+      page: 0,
+      filter: ''
     }
   }
   enterFile = (fileId) => {
@@ -28,33 +30,56 @@ class ResourceSegment extends Component {
     console.log('changeing page', page)
     this.setState({page})
   }
+  filterData = (filter) => {
+    this.setState({
+      filter
+    })
+  }
+  clearFilter = () => {
+    this.setState({filter: ''})
+  }
   render () {
+    const {filter} = this.state
+    let fileList = this.props.fileList.filter(item => {
+      return item.title.search(filter) !== -1 ||
+        item.content.search(filter) !== -1 ||
+        item.creator.search(filter) !== -1
+    })
     return (
-      <List
-        itemLayout="vertical"
-        size="large"
-        pagination={{
-          onChange: (page) => {
-            this.changePage(page)
-          },
-          pageSize,
-        }}
-        dataSource={this.props.fileList}
-        footer={<div><b>File List</b> page</div>}
-        renderItem={(item, index) => (
-          <List.Item
-            key={item.title}
-            actions={[<IconText type="user" text="root" />, <IconText type="calendar" text={item.createDate} />, <IconText type="file" text={item.type} />]}
-          >
-            <List.Item.Meta
-              avatar={<Icon type="file-pdf" />}
-              title={<a onClick={() => {this.enterFile(item.id)}}>{item.title}</a>}
-              description={item.description}
-            />
-            {item.content}
-          </List.Item>
-        )}
-      />
+      <div>
+        <Search
+          placeholder="input search text"
+          onSearch={this.filterData}
+          enterButton
+          style={{ width: 460 }}
+        />
+        <Button style={{marginLeft: '10px'}} type="primary" onClick={this.clearFilter}>Clear Filter</Button>
+        <List
+          itemLayout="vertical"
+          size="large"
+          pagination={{
+            onChange: (page) => {
+              this.changePage(page)
+            },
+            pageSize,
+          }}
+          dataSource={fileList}
+          footer={<div><b>File List</b> page</div>}
+          renderItem={(item, index) => (
+            <List.Item
+              key={item.title}
+              actions={[<IconText type="user" text="root" />, <IconText type="calendar" text={item.createDate} />, <IconText type="file" text={item.type} />]}
+            >
+              <List.Item.Meta
+                avatar={<Icon type="file-pdf" />}
+                title={<a onClick={() => {this.enterFile(item.id)}}>{item.title}</a>}
+                description={item.description}
+              />
+              {item.content}
+            </List.Item>
+          )}
+        />
+      </div>
     )
   }
 }

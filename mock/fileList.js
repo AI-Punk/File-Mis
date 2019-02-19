@@ -12,6 +12,15 @@ export default function getFileList (req, res) {
       group: randomGroup('Folder', 3)
     })
   }
+  fileList.push({
+    id: '_fake_',
+    title: '..',
+    createDate: '2018-11-1',
+    content: 'this is a test file',
+    creator: 'root',
+    type: 'folder',
+    group: randomGroup('Folder', 3)
+  })
   res.json({
     success: true,
     data: fileList

@@ -40,8 +40,12 @@ class ResourceSegment extends Component {
   }
   render () {
     const {filter} = this.state
-    let fileList = this.props.fileList.filter(item => {
-      return item.title.search(filter) !== -1 ||
+    let fileList = this.props.fileList
+      .filter(item => {
+        return item.id.slice(0, 6) !== '_fake_'
+      })
+      .filter(item => {
+      return  item.title.search(filter) !== -1 ||
         item.content.search(filter) !== -1 ||
         item.creator.search(filter) !== -1
     })

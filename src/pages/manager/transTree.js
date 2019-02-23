@@ -79,7 +79,8 @@ function transTreeDFS(node, renderNode, folderNode) {
         key,
         type: 'folder',
         name: key,
-        group: value.group
+        group: value.group,
+        limit: null
       }
       let fchild = {...child}
       renderNode.children.push(child)
@@ -98,7 +99,7 @@ function transTreeDFS(node, renderNode, folderNode) {
   }
 }
 
-function getRenderTree (list) {
+function getRenderTree (list = []) {
   const ans = buildTree(list)
   const {folderTree, renderTree} = transTree(ans)
   return {
@@ -109,7 +110,8 @@ function getRenderTree (list) {
 }
 
 export {getRenderTree}
-// const ans = buildTree(TEST_DATA)
+// const TEST_DATA = []
+// const ans = getRenderTree(TEST_DATA)
 // console.log(ans.hasNode(['folder-1']))
 // console.log(ans.hasNode(['folder-2']))
 // console.log(ans.hasNode(['folder-1', 'folder-2']))

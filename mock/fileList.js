@@ -13,13 +13,40 @@ export default function getFileList (req, res) {
     })
   }
   fileList.push({
-    id: '_fake_',
+    id: '_fake_1',
     title: '..',
     createDate: '2018-11-1',
     content: 'this is a test file',
     creator: 'root',
     type: 'folder',
-    group: randomGroup('Folder', 3)
+    group: ['Folder-1']
+  })
+  fileList.push({
+    id: '_fake_2',
+    title: '..',
+    createDate: '2018-11-1',
+    content: 'this is a test file',
+    creator: 'root',
+    type: 'folder',
+    group: ['Folder-2']
+  })
+  fileList.push({
+    id: '_fake_3',
+    title: '..',
+    createDate: '2018-11-1',
+    content: 'this is a test file',
+    creator: 'root',
+    type: 'folder',
+    group: ['Folder-3']
+  })
+  fileList.push({
+    id: '_fake_4',
+    title: '..',
+    createDate: '2018-11-1',
+    content: 'this is a test file',
+    creator: 'root',
+    type: 'folder',
+    group: []
   })
   res.json({
     success: true,

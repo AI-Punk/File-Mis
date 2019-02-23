@@ -6,17 +6,17 @@ const ClickIcon = {
 function columnWrapper (self) {
   return [
     {
-      title: 'username',
+      title: 'Username',
       dataIndex: 'username',
       key: 'username'
     },
     {
-      title: 'create date',
+      title: 'Create Date',
       dataIndex: 'createDate',
       key: 'createDate'
     },
     {
-      title: 'auth time limit',
+      title: 'Auth Time Limit',
       dataIndex: 'limit',
       key: 'limit'
     },

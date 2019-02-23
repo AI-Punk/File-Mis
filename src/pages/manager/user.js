@@ -152,7 +152,6 @@ class UserInfo extends Component {
         return record.id === item.id
       }) > -1
     })
-    debugger
     this.props.dispatch({
       type: 'manager/postUser',
       payload: {

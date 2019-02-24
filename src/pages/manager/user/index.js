@@ -17,10 +17,19 @@ class UserInfo extends Component {
       return authFile.id
     })
     let mapAuthFileList = dataSource.map(record => {
-      let limit = 0
-      let findIndex = authFileList.findIndex(item => {return item.id === record.id})
-      if (findIndex > -1) {
-        limit = authFileList[findIndex].limit || 0
+      let limit
+      if (record.type !== 'folder') {
+        limit = 0
+        let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+        if (findIndex > -1) {
+          limit = authFileList[findIndex].limit || 0
+        }
+      } else {
+        limit = null
+        let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+        if (findIndex > -1) {
+          limit = authFileList[findIndex].limit || null
+        }
       }
       return {
         ...record,
@@ -29,7 +38,7 @@ class UserInfo extends Component {
     })
     this.state = {
       id,
-      currentRow: 0,
+      currentRow: {},
       currentRowLimit: 0,
       selectedRowKeys,
       authFileList: mapAuthFileList,
@@ -54,10 +63,19 @@ class UserInfo extends Component {
       return authFile.id
     })
     let mapAuthFileList = dataSource.map(record => {
-      let limit = 0
-      let findIndex = authFileList.findIndex(item => {return item.id === record.id})
-      if (findIndex > -1) {
-        limit = authFileList[findIndex].limit || 0
+      let limit
+      if (record.type !== 'folder') {
+        limit = 0
+        let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+        if (findIndex > -1) {
+          limit = authFileList[findIndex].limit || 0
+        }
+      } else {
+        limit = null
+        let findIndex = authFileList.findIndex(item => {return item.id === record.id})
+        if (findIndex > -1) {
+          limit = authFileList[findIndex].limit || null
+        }
       }
       return {
         ...record,
@@ -122,7 +140,7 @@ class UserInfo extends Component {
   openRow = (record, index) => {
     this.setState({
       showLimitForm: true,
-      currentRow: index,
+      currentRow: record,
       currentRowLimit: record.limit,
       defaultMode: record.limit !== null
     })
@@ -133,11 +151,14 @@ class UserInfo extends Component {
     })
   }
   confirmRow = () => {
-    const {currentRow, currentRowLimit, defaultMode} = this.state
-    if (defaultMode) {
-      this.changeLimit(currentRow, currentRowLimit)
+    const {currentRow, currentRowLimit, defaultMode, authFileList} = this.state
+    let index = authFileList.findIndex(item => {
+      return item.id === currentRow.id
+    })
+    if (defaultMode && index > -1) {
+      this.changeLimit(index, currentRowLimit)
     } else {
-      this.changeLimit(currentRow, null)
+      this.changeLimit(index, null)
     }
     this.closeRow()
   }
@@ -157,7 +178,7 @@ class UserInfo extends Component {
       limitMode
     } = this.state
     let mapAuthFileList = authFileList.filter(item => {
-      return item.limit > 0
+      return item.limit > 0 || item.type === 'folder'
     }).map(item => {
       return {
         id: item.id,

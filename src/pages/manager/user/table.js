@@ -90,6 +90,7 @@ function AuthFileList (props) {
       }
     }
   ]
+  console.log('current', currentRow, authFileList)
   return (
     <div>
       <Table 
@@ -104,9 +105,8 @@ function AuthFileList (props) {
         onCancel={closeRow}
         visible={showLimitForm}>
           <LimitForm
-            index={currentRow}
             limit={currentRowLimit}
-            record={authFileList[currentRow]}
+            record={currentRow}
             defaultMode={defaultMode}
             changeDefaultMode={changeDefaultMode}
             changeCurrentLimit={changeCurrentLimit} />

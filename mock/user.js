@@ -6,7 +6,8 @@ export default function getUser (req, res) {
     createDate: '2018-11-30',
     authFileList: [
       { id: 'fileid-2', limit: 0.1 },
-      { id: 'fileid-3', limit: 0.4 }
+      { id: 'fileid-3', limit: 0.4 },
+      { id: '_fake_3', limit: 0.6 }
     ],
     limit: 120
   } 

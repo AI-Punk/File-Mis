@@ -21,6 +21,8 @@ class Node {
     this.subTree = new Map()
     this.leaves = new Set()
     this.group = group
+    this.id = '_fake_'
+    this.type = 'folder'
   }
   appendTree (tree, group) {
     if (!this.subTree.has(tree)) {
@@ -38,6 +40,16 @@ class Node {
     } else {
       if (this.subTree.has(group[0])) {
         return this.subTree.get(group[0]).hasNode(group.slice(1))
+      } 
+      return false
+    }
+  }
+  getNode (group) {
+    if (group.length === 0) {
+      return this
+    } else {
+      if (this.subTree.has(group[0])) {
+        return this.subTree.get(group[0]).getNode(group.slice(1))
       } 
       return false
     }
@@ -62,12 +74,27 @@ function appendRecord (node, pos, record) {
   }
 }
 
-function transTree (tree) {
+function transTree (tree, list) {
   let renderTree = {id: 'root', key: 'root', type: 'folder', name: 'root', group: []}
   let folderTree = {...renderTree}
   producer.init()
+  adjustFolders(list, tree)
   transTreeDFS(tree, renderTree, folderTree)
   return { renderTree, folderTree }
+}
+function adjustFolders (list, tree) {
+  const folders = list.filter(item => {
+    return item.type === 'folder'
+  })
+  console.table(folders)
+  folders.forEach(folder => {
+    let node = tree.getNode(folder.group)
+    console.log('node', node)
+    if (node !== false) {
+      node.id = folder.id
+      node.limit = folder.limit
+    }
+  })
 }
 function transTreeDFS(node, renderNode, folderNode) {
   renderNode.children = []
@@ -75,12 +102,12 @@ function transTreeDFS(node, renderNode, folderNode) {
   if (node.subTree.size > 0) {
     for (let [key, value] of node.subTree.entries()) {
       let child = {
-        id: producer.getId(),
+        id: value.id,
         key,
-        type: 'folder',
+        type: value.type,
         name: key,
         group: value.group,
-        limit: null
+        limit: value.limit || null
       }
       let fchild = {...child}
       renderNode.children.push(child)
@@ -101,7 +128,7 @@ function transTreeDFS(node, renderNode, folderNode) {
 
 function getRenderTree (list = []) {
   const ans = buildTree(list)
-  const {folderTree, renderTree} = transTree(ans)
+  const {folderTree, renderTree} = transTree(ans, list)
   return {
     folderTree,
     renderTree,

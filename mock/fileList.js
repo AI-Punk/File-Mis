@@ -28,7 +28,7 @@ export default function getFileList (req, res) {
     content: 'this is a test file',
     creator: 'root',
     type: 'folder',
-    group: ['Folder-2']
+    group: ['Folder-1', 'Folder-2']
   })
   fileList.push({
     id: '_fake_3',
@@ -37,7 +37,7 @@ export default function getFileList (req, res) {
     content: 'this is a test file',
     creator: 'root',
     type: 'folder',
-    group: ['Folder-3']
+    group: ['Folder-1', 'Folder-2', 'Folder-3']
   })
   fileList.push({
     id: '_fake_4',

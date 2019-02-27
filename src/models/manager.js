@@ -203,6 +203,7 @@ export default {
         type: 'postFileList', 
         payload: {fileList}
       })
+      yield put({ type: 'getFileList' })
     },
     *moveFile ({payload}, {call, put}) {
       const {movingIndex, targetGroup, dataSource} = payload
@@ -222,6 +223,7 @@ export default {
         type: 'postFileList', 
         payload: {fileList}
       })
+      yield put({ type: 'getFileList' })
     },
     *postFileList({payload}, {call, put}) {
       const fileList = payload.fileList.map(record => {

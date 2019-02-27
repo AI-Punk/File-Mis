@@ -182,6 +182,7 @@ class UserInfo extends Component {
     }).map(item => {
       return {
         id: item.id,
+        group: item.group,
         limit: item.limit
       }
     })

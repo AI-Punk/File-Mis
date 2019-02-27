@@ -191,8 +191,8 @@ export default {
       }
     },
     *addFolder ({payload}, {call, put}) {
-      const {group, folderName, dataSource} = payload
-      const fileList = [...dataSource]
+      const {group, folderName} = payload
+      const fileList = []
       fileList.push({
         id: '_fake_',
         title: '..',
@@ -207,15 +207,24 @@ export default {
     },
     *moveFile ({payload}, {call, put}) {
       const {movingIndex, targetGroup, dataSource} = payload
-      const fileList = [...dataSource]
+      let fileList
       if (typeof movingIndex === 'number') {
-        fileList[movingIndex].group = targetGroup
+        // fileList[movingIndex].group = targetGroup
+        fileList = [
+          {
+            ...dataSource[movingIndex],
+            group: targetGroup
+          }
+        ]
       } else if (movingIndex instanceof Array) {
-        fileList.forEach(file => {
-          if (movingIndex.every((g, i) => {
+        fileList = dataSource.filter(file => {
+          return movingIndex.every((g, i) => {
             return g === file.group[i]
-          })) {
-            file.group = [...targetGroup, ...movingIndex.slice(-1)]
+          })
+        }).map(file => {
+          return {
+            ...file,
+            group: [...targetGroup, ...movingIndex.slice(-1)]
           }
         })
       }

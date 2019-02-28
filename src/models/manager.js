@@ -99,6 +99,33 @@ export default {
         message.error('[Server Error| deleteFile]:' + result.data)
       }
     },
+    *deleteFolder ({payload}, {call, put}) {
+      const {group, fileList} = payload
+      const deleteList = fileList.filter(file => {
+        return group.every((g, i) => {
+          return g === file.group[i]
+        })
+      }).map(item => {
+        return {
+          id: item.id
+        }
+      })
+      let res = yield call(fetch, getURL('deleteFolder'), {
+        method: 'post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        credentials: 'include',
+        body: JSON.stringify(deleteList)
+      })
+      let result = yield res.json()
+      if (result.success) {
+        yield put({ type: 'getFileList' })
+        message.success('success!')
+      } else {
+        message.error('[Server Error| deleteFolder]:' + result.data)
+      }
+    },
     *deleteUser ({payload}, {call, put}) {
       let res = yield call(fetch, getURL('deleteUser'), {
         method: 'post',

@@ -7,6 +7,7 @@ import token from './mock/login'
 import upload from './mock/upload'
 import postFileList from './mock/postFileList'
 import logout from './mock/logout'
+import deleteFolder from './mock/deleteFolder';
 export default {
   'POST /postUser': userList,
   'POST /postFile': fileList,
@@ -21,5 +22,7 @@ export default {
   'POST /register': token,
   'POST /uploadFile': upload,
   'POST /postFileList': postFileList,
-  'GET /logOut': logout
+  'GET /logOut': logout,
+  'POST /deleteFolder': deleteFolder,
+  'POST /deleteFile': deleteFolder
 };

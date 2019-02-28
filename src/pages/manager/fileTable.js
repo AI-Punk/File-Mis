@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { Table, Divider, Button, Tag, Modal, Input, Form, Icon, Tooltip } from 'antd'
+import { Table, Divider, Button, Tag, Modal, Input, Form, Icon, Tooltip, Popconfirm } from 'antd'
 import {getRenderTree} from './transTree'
 const ClickIcon = {
   cursor: 'pointer'
@@ -78,6 +78,16 @@ function columnWrapper (self) {
                   <Icon type="upload" />
                 </Button>
               </Tooltip>
+              <Divider type="vertical" />
+              <Popconfirm title="Are you sure to delete this folder and all file in it?"
+                onConfirm={() => {self.deleteFolder(record)}}
+                >
+                <Tooltip title="Delete">
+                  <Button size="small" shape="circle">
+                    <Icon type="delete" />
+                  </Button>
+                </Tooltip>
+              </Popconfirm>
             </span>
           )
         }
@@ -137,6 +147,15 @@ class FileTable extends Component {
       type: 'manager/deleteFile',
       payload: {
         id: record.id
+      }
+    })
+  }
+  deleteFolder = (record) => {
+    this.props.dispatch({
+      type: 'manager/deleteFolder',
+      payload: {
+        group: record.group,
+        fileList: this.props.dataSource
       }
     })
   }

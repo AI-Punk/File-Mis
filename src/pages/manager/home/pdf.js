@@ -25,20 +25,8 @@ class PDFReader extends Component {
     })
   }
   render () {
-    let { pageNumber, numPages } = this.state;
     return (
-      <div style={{width: '100%', height: '700px', overflowY: 'auto'}}>
-        <Pagination defaultCurrent={1} total={numPages * 10} current={pageNumber} onChange={this.changePage} />
-        <Document
-          file={this.props.src}
-          onLoadSuccess={this.onDocumentLoadSuccess}
-          onLoadError={this.onDocumentLoadError}
-          onSourceError={this.onSourceError}
-        >
-          <Page width={900} pageNumber={pageNumber} />
-        </Document>
-        <p>Page {pageNumber} of {numPages}</p>
-      </div>
+      <iframe style={{width: '100%', height: '540px'}} src={this.props.src} title="file"></iframe>
     )
   }
 }

@@ -23,7 +23,6 @@ class VideoPage extends Component {
   }
 }
 function mapStateToProps (state) {
-  console.log('video state', state)
   return state.home
 }
 export default connect(mapStateToProps)(VideoPage)

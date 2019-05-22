@@ -1,8 +1,15 @@
 .entry-segment{
+  background-color: #fff;
+  padding: 26px;
   position: fixed;
   min-width: 200px;
   min-height: 200px;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%)
+  transform: translate(-50%, -50%);
+  box-shadow: 10px 0px 10px 0px rgba(0, 0, 0, 0.29);
+  border-radius: 4px;
+}
+body{
+  background-color: #001529;
 }

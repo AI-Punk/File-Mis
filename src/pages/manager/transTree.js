@@ -86,10 +86,8 @@ function adjustFolders (list, tree) {
   const folders = list.filter(item => {
     return item.type === 'folder'
   })
-  console.table(folders)
   folders.forEach(folder => {
     let node = tree.getNode(folder.group)
-    console.log('node', node)
     if (node !== false) {
       node.id = folder.id
       node.limit = folder.limit

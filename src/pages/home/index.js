@@ -19,7 +19,6 @@ class HomePage extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Layout className="home-page">
         <Sider

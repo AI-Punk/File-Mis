@@ -112,7 +112,6 @@ class FileTable extends Component {
       group: [],
       folderName: 'New Folder'
     }
-    console.log('state', this.state)
   }
   UNSAFE_componentWillReceiveProps (props) {
     const {dataSource} = props
@@ -122,7 +121,6 @@ class FileTable extends Component {
       folderTree,
       hashTree
     })
-    console.log('state', this.state)
   }
   editCol = (record) => {
     let index = this.props.dataSource.findIndex(item => {
@@ -161,7 +159,6 @@ class FileTable extends Component {
   }
   addFile = (record) => {
     const {group = []} = record
-    console.log('c1', this.state.fileList)
     this.props.dispatch({
       type: 'manager/save',
       payload: {
@@ -207,12 +204,10 @@ class FileTable extends Component {
   addFolder = () => {
     const {group, hashTree} = this.state
     let { folderName } = this.state
-    console.log('group', group)
     // should check if there is any folder has the same name. auto adjust the foldername.
     if (hashTree.hasNode(group.concat(folderName))) {
       folderName = folderName + '(1)'
     }
-    console.log('fileList', this.props.dataSource)
     this.props.dispatch({
       type: 'manager/addFolder',
       payload: {
@@ -224,7 +219,6 @@ class FileTable extends Component {
     this.hideModal()
   }
   handleMovement = (selectedRowKeys, selectedRows) => {
-    console.log(selectedRowKeys, selectedRows)
     if (selectedRowKeys.length > 0) {
       this.setState({
         selectedRowKeys: selectedRowKeys.slice(-1),
@@ -250,7 +244,6 @@ class FileTable extends Component {
       selectedRowKeys,
       onChange: this.handleMovement,
     };
-    console.log(renderTree, folderTree)
     return (
       <div>
         <Button type="primary" icon="upload" onClick={() => {this.addFile({})}}>Upload</Button>

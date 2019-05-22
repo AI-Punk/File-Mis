@@ -15,7 +15,6 @@ class UserMenu extends Component {
     )
   }
   logout = ({key}) => {
-    console.log('key', key)
     if (key === "1") {
       this.props.dispatch({
         type: 'manager/logout'

@@ -27,7 +27,6 @@ class ResourceSegment extends Component {
     })
   }
   changePage = (page) => {
-    console.log('changeing page', page)
     this.setState({page})
   }
   filterData = (filter) => {

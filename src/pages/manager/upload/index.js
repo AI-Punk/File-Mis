@@ -13,7 +13,6 @@ class UploadPage extends Component {
   }
   updateFileList = (fileList) => {
     const userList = this.props.userList
-    console.log('get fileList', fileList)
     if (fileList.length > 0) {
       this.allowNext()
     }

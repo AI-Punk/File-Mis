@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import { Layout, message } from 'antd'
 import { connect } from 'dva'
-import PDFReader from './pdf.js'
+import PDFReader from './pdf.react.js'
 import VideoReader from './video.js'
 import AudioReader from './audio.js'
 import ImageReader from './image.js'
@@ -37,7 +37,6 @@ class DisplayPage extends Component {
       return <div>Resource not loaded yet.</div>
     }
     const currentFile = this.props.fileInfo
-    console.log('currentFile')
     return (
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }}>

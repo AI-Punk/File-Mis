@@ -11,7 +11,6 @@ class FileModel {
       }
     })
     this.type = file.name.split('.').slice(-1)[0] || 'null'
-    console.log('filefile', file.response)
     this.id = file.response.data.id
   }
   updateValue (props) {

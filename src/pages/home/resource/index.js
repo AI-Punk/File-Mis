@@ -16,14 +16,12 @@ class ResourceSegment extends Component {
     }
   }
   enterFile = (index) => {
-    console.log(index)
     this.props.dispatch({
       type: 'home/displayFile',
       index
     })
   }
   changePage = (page) => {
-    console.log('changeing page', page)
     this.setState({page})
   }
   render () {

@@ -59,7 +59,6 @@ export default {
       return { ...state, ...action.payload };
     },
     displayFile (state, { index }) {
-      console.log('model', index)
       return {
         ...state,
         currentFile: index,

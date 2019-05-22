@@ -12,6 +12,9 @@ export default {
   },
   effects: {
     *login ({payload}, {put, call}) {
+      yield put({ type: 'save',
+          payload: {mode: 0}
+        })
       let res = yield call(fetch, getURL('login'), {
         method: 'POST',
         credentials: 'include',
@@ -25,7 +28,6 @@ export default {
         cookie.set('token', result.data.token, {expires: result.data.expires || 1})
         cookie.set('isManager', result.data.isManager, {expires: result.data.expires || 1})
         cookie.set('username', payload.username || 'user')
-        console.log(result, 'result')
         yield put(routerRedux.push('/'))
         message.success('login success')
       } else {

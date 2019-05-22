@@ -53,9 +53,7 @@ function AuthFileList (props) {
     defaultMode,
     changeDefaultMode
   } = props
-  console.log(authFileList)
   const {renderTree} = getRenderTree(authFileList)
-  console.log('renderTree', renderTree)
   const columns = [
     {
       title: 'Name',
@@ -81,7 +79,6 @@ function AuthFileList (props) {
               openRow(record, index)
             }} color="blue">unset</Tag>)
         }
-        console.log('index', index)
         let color = record.limit > 0 ? 'green' : 'red'
         return (<Tag onClick={() => {
           openRow(record, index)
@@ -90,7 +87,6 @@ function AuthFileList (props) {
       }
     }
   ]
-  console.log('current', currentRow, authFileList)
   return (
     <div>
       <Table 

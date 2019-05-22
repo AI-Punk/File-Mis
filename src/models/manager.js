@@ -45,7 +45,6 @@ export default {
     },
     *postFile({ payload }, {call, put}) {
       // handle both create and update
-      console.log('postfile', payload)
       let res = yield call(fetch, getURL('postFile'), {
         method: 'post',
         headers: {
@@ -268,7 +267,6 @@ export default {
           group: record.group
         }
       })
-      console.log('fileList', fileList)
       let res, result;
       try {
         res = yield call(fetch, getURL('postFileList'), {
@@ -304,7 +302,6 @@ export default {
       return { ...state, ...action.payload };
     },
     displayFile (state, { index }) {
-      console.log('model', index)
       return {
         ...state,
         currentFile: index,

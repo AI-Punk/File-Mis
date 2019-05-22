@@ -45,7 +45,6 @@ class FileInfo extends Component {
     })
   }
   onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys)
     const {fileList, currentFile} = this.state
     fileList[currentFile].authUserIds = selectedRowKeys
     this.setState({ fileList });
@@ -91,7 +90,6 @@ class FileInfo extends Component {
     const {fileList} = this.state
     const {dispatch} = this.props
     fileList.forEach(file => {
-      console.log('auth', file.authUserList, file)
       dispatch({
         type: 'manager/postFile',
         payload: {

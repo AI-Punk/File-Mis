@@ -81,7 +81,6 @@ class ManagerPage extends Component {
   }
 
   render() {
-    console.log(this.props)
     return (
       <Layout className="home-page">
         <Sider className="home-menu"

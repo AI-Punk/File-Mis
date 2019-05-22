@@ -30,7 +30,6 @@ class FileInfo extends Component {
     let selectedRowKeys = authUserList.map(authUser => {
       return authUser.id
     })
-    console.log('init select', selectedRowKeys, authUserList)
     let mapAuthUserList = dataSource.map(record => {
       let limit = 1
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
@@ -143,7 +142,6 @@ class FileInfo extends Component {
     })
   }
   onSelectChange = (selectedRowKeys) => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys);
     this.setState({ selectedRowKeys });
   }
   expandedRowRender = (record, index) => {

@@ -39,7 +39,6 @@ function columnWrapper (self) {
 }
 class UserTable extends Component {
   editCol = (record) => {
-    console.log('edit', record)
     let index = this.props.dataSource.indexOf(record)
     this.props.dispatch({
       type: 'manager/getUser',

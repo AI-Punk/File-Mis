@@ -21,7 +21,7 @@ class MyApp extends Component {
     const pages = [];
     if (numPages !== null) {
         for (let i = 1; i <= numPages; i++) {
-            pages.push(<Page width={width} pageNumber={i} />);
+            pages.push(<Page width={width} pageNumber={i} renderTextLayer={false} />);
         }
     }
     return pages;

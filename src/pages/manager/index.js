@@ -69,6 +69,7 @@ class ManagerPage extends Component {
     this.props.dispatch({
       type: 'manager/getFileList'
     })
+    this.disableCopy = null;
   }
   state = {
     collapsed: false,
@@ -78,6 +79,17 @@ class ManagerPage extends Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
+  }
+
+  componentDidMount () {
+    this.disableCopy = event => event.preventDefault();
+    document.addEventListener('contextmenu', this.disableCopy);
+    document.addEventListener('dragstart', this.disableCopy);
+  }
+
+  componentWillUnmount () {
+    document.removeEventListener('contextmenu', this.disableCopy);
+    document.removeEventListener('dragstart', this.disableCopy);
   }
 
   render() {

@@ -13,7 +13,7 @@ import UserMenu from './utils/userMenu'
 // import VideoSegment from './video/index.js'
 // import PageLocation from './pageLocation.js'
 import { Layout, Icon } from 'antd';
-import {cookie} from 'cookie_js'
+import cookie from 'cookie_js'
 import './index.css'
 const { Header, Sider, Content } = Layout;
 // const Segments = [<ResourceSegment />, <VideoSegment />]

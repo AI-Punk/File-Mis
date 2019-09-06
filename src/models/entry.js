@@ -1,4 +1,4 @@
-import {cookie} from 'cookie_js'
+import cookie from 'cookie_js'
 import { routerRedux } from 'dva/router';
 // import fetch from './mock/index'
 import fetch from 'dva/fetch'

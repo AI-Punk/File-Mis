@@ -270,7 +270,7 @@ class FileTable extends Component {
             <Table style={{marginTop: '1rem'}}
               rowSelection={rowSelection}
               columns={COLS}
-              dataSource={[folderTree]}
+              dataSource={folderTree.children}
               rowKey={record => record.id}
               />
           </Modal>

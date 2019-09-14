@@ -1,7 +1,8 @@
 import React from 'react';
 import { connect } from 'dva';
 import ManagerPage from '../pages/manager/index.js'
-import cookie from 'cookie_js'
+import cookie from 'js-cookie'
+
 import {routerRedux} from 'dva/router'
 
 function IndexPage(props) {

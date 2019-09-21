@@ -40,7 +40,6 @@ class UploadPage extends Component {
       content: file.name,
       type: file.name.split('.').slice(-1)[0] || 'null',
       group: uploadGroup,
-      fileO:file.name.split('.').slice(-1)[0]=='docx'?console.log(file):null
     }
   }
   render () {

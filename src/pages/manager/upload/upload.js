@@ -12,6 +12,7 @@ const draggerProps = {
 class UploadPage extends Component {
   onChange = (info) => {
     const { status , response } = info.file;
+    console.log(response);
     if (status !== 'uploading') {
       console.log(info.file, info.fileList);
     }
@@ -31,13 +32,15 @@ class UploadPage extends Component {
   }
   getUploadData = (file) => {
     // how to bring cookie ?
-    const {uploadGroup} = this.props
+    console.log(file);
+    const {uploadGroup} = this.props;
     return {
       id: -1,
       title: file.name,
       content: file.name,
       type: file.name.split('.').slice(-1)[0] || 'null',
-      group: uploadGroup
+      group: uploadGroup,
+      fileO:file.name.split('.').slice(-1)[0]=='docx'?console.log(file):null
     }
   }
   render () {

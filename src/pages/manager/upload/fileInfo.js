@@ -113,7 +113,7 @@ class FileInfo extends Component {
     const formLayout = {
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
-    } 
+    }
     return (
       <div>
         <Form layout="horizontal">
@@ -125,9 +125,9 @@ class FileInfo extends Component {
           </FormItem>
         </Form>
         <Table style={{marginTop: '1rem'}}
-          scroll={{ y: 240 }} 
-          rowSelection={rowSelection} 
-          dataSource={userList} 
+          scroll={{ y: 240 }}
+          rowSelection={rowSelection}
+          dataSource={userList}
           columns={columnProps}
           pagination={{ pageSize: 10 }}
           rowKey={(record) => record.id}

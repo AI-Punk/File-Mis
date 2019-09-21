@@ -1,7 +1,7 @@
 {
   "private": true,
   "scripts": {
-    "start": "PORT=8000 roadhog server",
+    "start": "roadhog server",
     "build": "roadhog build",
     "lint": "eslint --ext .js src test",
     "precommit": "npm run lint"
@@ -11,6 +11,7 @@
     "antd": "^3.10.9",
     "cookie_js": "^1.2.2",
     "dva": "^2.4.1",
+    "mammoth": "^1.4.8",
     "moment": "^2.22.2",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",

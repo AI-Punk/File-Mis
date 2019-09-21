@@ -5,6 +5,7 @@ import PDFReader from './pdf.react.js'
 import VideoReader from './video.js'
 import AudioReader from './audio.js'
 import ImageReader from './image.js'
+import OfficeReader from './office.js'
 const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
@@ -20,6 +21,7 @@ function readers (type, props) {
     'jpg': <ImageReader {...props} />,
     'gif': <ImageReader {...props} />,
     'jpeg': <ImageReader {...props} />,
+    'docx':<OfficeReader {...props} />,
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')
@@ -41,7 +43,6 @@ class DisplayPage extends Component {
       <Layout>
         <Header style={{ background: '#fff', padding: 0 }}>
           <h2>{ currentFile.title }</h2>
-          <p>{ currentFile.content }</p>
         </Header>
         <Content>
           { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit}) }

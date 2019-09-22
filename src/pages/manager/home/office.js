@@ -1,9 +1,24 @@
 import React, { Component } from 'react';
-
+import './office.css';
 var mammoth = require('mammoth');
+
 function handleFileSelect(event){
+    let options = {
+      styleMap:[
+        "p[style-name='Heading 1'] => h1:fresh",
+        "p[style-name='Heading 2'] => h2:fresh",
+        "p[style-name='Heading 3'] => h3:fresh",
+        "p[style-name='Heading 4'] => h4:fresh",
+        "p[style-name='Section Title'] => h1:fresh",
+        "p[style-name='Subsection Title'] => h2:fresh",
+        "p[style-name='Heading']=>h1:fresh",
+        "b => strong",
+        "i => em",
+        "u => u"
+      ]
+    }
     readFileInputEventAsArrayBuffer(event,  function temp(arrayBuffer){
-        mammoth.convertToHtml({arrayBuffer: arrayBuffer})
+        mammoth.convertToHtml({arrayBuffer: arrayBuffer},options)
             .then((result)=>{displayResult(result)})
             .done();
     });
@@ -23,14 +38,8 @@ function readFileInputEventAsArrayBuffer(event, callback){
 function displayResult(result){
     // console.log(result)
     const container = document.getElementById('wordReader');
+    // console.log(result.value);
     container.innerHTML = result.value;
-};
-function escapeHtml(value){
-    return value
-        .replace(/&/g, '&amp;')
-        .replace(/"/g, '&quot;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;');
 };
 class OfficeReader extends Component {
   state = {
@@ -40,9 +49,9 @@ class OfficeReader extends Component {
 
   render(){
     return(
-      <pre id='wordReader' style={{whiteSpace: 'pre-wrap',wordWrap: 'break-word',height: '600px', overflowY: 'auto'}}>
+      <div id='wordReader' style={{fontSize:'1rem',height: '600px', overflowY: 'auto'}}>
 
-      </pre>
+      </div>
     );
   }
 

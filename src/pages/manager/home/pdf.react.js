@@ -42,7 +42,6 @@ class MyApp extends Component {
     );
   }
   componentDidMount () {
-    console.log(this.props.src);
     const container = document.getElementById('pdf-reader');
     const width = parseInt(window.getComputedStyle(container).getPropertyValue('width').slice(0, -2), 10);
     this.setState({

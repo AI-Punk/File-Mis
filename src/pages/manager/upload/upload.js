@@ -37,7 +37,7 @@ class UploadPage extends Component {
       title: file.name,
       content: file.name,
       type: file.name.split('.').slice(-1)[0] || 'null',
-      group: uploadGroup,
+      group: uploadGroup
     }
   }
   render () {

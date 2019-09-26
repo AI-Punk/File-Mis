@@ -12,12 +12,11 @@ const draggerProps = {
 class UploadPage extends Component {
   onChange = (info) => {
     const { status , response } = info.file;
-    console.log(response);
     if (status !== 'uploading') {
-      console.log(info.file, info.fileList);
+      // console.log(info.file, info.fileList);
     }
     if (status === 'done') {
-      console.log(`${info.file.name} file uploaded successfully.`);
+      // console.log(`${info.file.name} file uploaded successfully.`);
       if (response.success) {
         this.props.updateFileList(info.fileList)
         this.props.dispatch({
@@ -27,12 +26,11 @@ class UploadPage extends Component {
         message.error('[Upload file fail]' + response.data)
       }
     } else if (status === 'error') {
-      console.log(`${info.file.name} file upload failed.`);
+      // console.log(`${info.file.name} file upload failed.`);
     }
   }
   getUploadData = (file) => {
     // how to bring cookie ?
-    console.log(file);
     const {uploadGroup} = this.props;
     return {
       id: -1,

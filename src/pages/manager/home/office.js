@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import './office.css';
 var mammoth = require('mammoth');
 
-function handleFileSelect(event){
+function handleFileSelect(event,element){
     let options = {
       styleMap:[
         "p[style-name='Heading 1'] => h1:fresh",
@@ -17,29 +17,28 @@ function handleFileSelect(event){
         "u => u"
       ]
     }
-    readFileInputEventAsArrayBuffer(event,  function temp(arrayBuffer){
+    readFileInputEventAsArrayBuffer(event, element, function temp(arrayBuffer,element){
         mammoth.convertToHtml({arrayBuffer: arrayBuffer},options)
-            .then((result)=>{displayResult(result)})
+            .then((result)=>{displayResult(result,element)})
             .done();
     });
 };
-function readFileInputEventAsArrayBuffer(event, callback){
+function readFileInputEventAsArrayBuffer(event,element, callback){
     let file = event;
 
     let reader = new FileReader();
 
     reader.onload = function(loadEvent) {
         let arrayBuffer = loadEvent.target.result;
-        callback(arrayBuffer);
+        callback(arrayBuffer,element);
     };
 
     reader.readAsArrayBuffer(file);
 };
-function displayResult(result){
+function displayResult(result,element){
     // console.log(result)
-    const container = document.getElementById('wordReader');
     // console.log(result.value);
-    container.innerHTML = result.value;
+    element.innerHTML = result.value;
 };
 class OfficeReader extends Component {
   state = {
@@ -49,26 +48,14 @@ class OfficeReader extends Component {
 
   render(){
     return(
-      <div id='wordReader' style={{fontSize:'1rem',height: '600px', overflowY: 'auto'}}>
+      <div ref='wordReader' id='wordReader' style={{fontSize:'1rem',height: '600px', overflowY: 'auto'}}>
 
       </div>
     );
   }
 
   componentDidMount (){
-    let xhr = new XMLHttpRequest();
-    xhr.open('GET', this.props.src, true);
-    // console.log(this.props.src);
-    xhr.send(null)
-    xhr.responseType = 'blob';
-    xhr.onreadystatechange = () =>{
-      if(xhr.readyState ===4 && xhr.status === 200){
-        console.log(xhr.response);
-        handleFileSelect(xhr.response);
-
-      }
-    }
-
+    fetch(this.props.src).then(data=>data.blob()).then(blob_data=>handleFileSelect(blob_data,this.refs.wordReader))
   }
 
 }

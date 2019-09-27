@@ -29,10 +29,10 @@ function getSegment (seg, props) {
   }
   const Segments = {
     'home': <HomePage />,
-    'display': <DisplayPage />,
+    'display': <DisplayPage dispatch={props.dispatch}/>,
     'fileList': <FileTable dataSource={props.fileList} dispatch={props.dispatch} />,
     'userList': <UserTable dataSource={props.userList} dispatch={props.dispatch} />,
-    'userInfo': <UserInfo 
+    'userInfo': <UserInfo
       {...currentUser}
       dataSource={props.fileList}
       dispatch={props.dispatch} />,

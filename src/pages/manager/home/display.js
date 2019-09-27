@@ -10,13 +10,13 @@ const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
     'pdf': <PDFReader {...props} />,
-    'mp4': <VideoReader {...props} />,
+    'mp4': <VideoReader {...props} dispatch={props.dispatch}/>,
     'mp3': <AudioReader {...props} />,
-    'avi': <VideoReader {...props} />,
-    'flv': <VideoReader {...props} />,
-    'asf': <VideoReader {...props} />,
-    'wav': <VideoReader {...props} />,
-    'siff': <VideoReader {...props} />,
+    'avi': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'flv': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'asf': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'wav': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'siff': <VideoReader {...props} dispatch={props.dispatch}/>,
     'png': <ImageReader {...props} />,
     'jpg': <ImageReader {...props} />,
     'gif': <ImageReader {...props} />,
@@ -45,7 +45,7 @@ class DisplayPage extends Component {
           <h2>{ currentFile.title }</h2>
         </Header>
         <Content>
-          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit}) }
+          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit,dispatch:this.props.dispatch}) }
         </Content>
       </Layout>
     )

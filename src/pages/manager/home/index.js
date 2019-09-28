@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import { List, Icon, Input, Button } from 'antd'
 import { connect } from 'dva'
+import {setTime} from "../../../utils/visit_time" 
 const Search = Input.Search
 const IconText = ({ type, text }) => (
   <span>
@@ -36,6 +37,9 @@ class ResourceSegment extends Component {
   }
   clearFilter = () => {
     this.setState({filter: ''})
+  }
+  componentWillMount(){
+    setTime()
   }
   render () {
     const {filter} = this.state

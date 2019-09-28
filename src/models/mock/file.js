@@ -24,4 +24,4 @@ export default {
     { id: 7, limit: 0.8 },
     { id: 9, limit: 0.2 }
   ]
-} 
+}

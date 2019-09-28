@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Document, Page } from 'react-pdf';
+import { message } from 'antd';
 
 class MyApp extends Component {
   state = {
@@ -7,7 +8,14 @@ class MyApp extends Component {
     pageNumber: 1,
     wdith: 600
   }
-
+  changeWindow = (site) => {
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentWindow: site
+      }
+    })
+  }
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
   }
@@ -47,6 +55,7 @@ class MyApp extends Component {
     this.setState({
         width: width - 10
     })
+    setTimeout(()=>{this.changeWindow('home');message.error(`You only have ${this.props.timeLimit}s access of this resource.`);},this.props.timeLimit*1000);
   }
 }
 

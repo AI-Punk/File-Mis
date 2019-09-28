@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { message } from 'antd';
 import './office.css';
 var mammoth = require('mammoth');
 
@@ -45,7 +46,17 @@ class OfficeReader extends Component {
     html: null,
     message: null
   };
-
+  changeWindow = (site) => {
+    this.props.dispatch({
+      type: 'manager/getFileList'
+    })
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentWindow: site
+      }
+    })
+  }
   render(){
     return(
       <div ref='wordReader' id='wordReader' style={{fontSize:'1rem',height: '600px', overflowY: 'auto'}}>
@@ -56,6 +67,7 @@ class OfficeReader extends Component {
 
   componentDidMount (){
     fetch(this.props.src).then(data=>data.blob()).then(blob_data=>handleFileSelect(blob_data,this.refs.wordReader))
+    setTimeout(()=>{this.changeWindow('home');message.error(`You only have ${this.props.timeLimit}s access of this resource.`);},this.props.timeLimit*1000);
   }
 
 }

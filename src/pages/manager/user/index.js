@@ -17,22 +17,28 @@ class UserInfo extends Component {
       return authFile.id
     })
     let mapAuthFileList = dataSource.map(record => {
+      let timeLimit
       let limit
       if (record.type !== 'folder') {
+        timeLimit = 0
         limit = 0
         let findIndex = authFileList.findIndex(item => {return item.id === record.id})
         if (findIndex > -1) {
+          timeLimit = authFileList[findIndex].timeLimit || 0
           limit = authFileList[findIndex].limit || 0
         }
       } else {
+        timeLimit = null
         limit = null
         let findIndex = authFileList.findIndex(item => {return item.id === record.id})
         if (findIndex > -1) {
+          timeLimit = authFileList[findIndex].timeLimit || null
           limit = authFileList[findIndex].limit || null
         }
       }
       return {
         ...record,
+        timeLimit,
         limit
       }
     })
@@ -63,22 +69,28 @@ class UserInfo extends Component {
       return authFile.id
     })
     let mapAuthFileList = dataSource.map(record => {
+      let timeLimit
       let limit
       if (record.type !== 'folder') {
+        timeLimit = 0
         limit = 0
         let findIndex = authFileList.findIndex(item => {return item.id === record.id})
         if (findIndex > -1) {
+          timeLimit = authFileList[findIndex].timeLimit || 0
           limit = authFileList[findIndex].limit || 0
         }
       } else {
+        timeLimit = null
         limit = null
         let findIndex = authFileList.findIndex(item => {return item.id === record.id})
         if (findIndex > -1) {
+          timeLimit = authFileList[findIndex].timeLimit || null
           limit = authFileList[findIndex].limit || null
         }
       }
       return {
         ...record,
+        timeLimit,
         limit
       }
     })
@@ -132,9 +144,21 @@ class UserInfo extends Component {
       authFileList
     })
   }
+  timeChangeLimit = (index,value)=>{
+    const {authFileList} = this.state
+    authFileList[index].timeLimit = value
+    this.setState({
+      authFileList
+    })
+  }
   changeCurrentLimit = (value) => {
     this.setState({
       currentRowLimit: value
+    })
+  }
+  timeChangeCurrentLimit = (value) => {
+    this.setState({
+      timeCurrentRowLimit: value
     })
   }
   openRow = (record, index) => {
@@ -145,9 +169,22 @@ class UserInfo extends Component {
       defaultMode: record.limit !== null
     })
   }
+  timeOpenRow = (record,index) => {
+    this.setState({
+      timeShowLimitForm: true,
+      timeCurrentRow:record,
+      timeCurrentRowLimit:record.timeLimit,
+      timeDefaultMode:record.timeLimit !== null
+    })
+  }
   closeRow = () => {
     this.setState({
       showLimitForm: false
+    })
+  }
+  timeCloseRow =()=>{
+    this.setState({
+      timeShowLimitForm:false
     })
   }
   confirmRow = () => {
@@ -162,9 +199,26 @@ class UserInfo extends Component {
     }
     this.closeRow()
   }
+  timeConfirmRow = () =>{
+    const {timeCurrentRow, timeCurrentRowLimit,timeDefaultMode,authFileList} = this.state
+    let index = authFileList.findIndex(item =>{
+      return item.id === timeCurrentRow.id
+    })
+    if (timeDefaultMode && index >-1){
+      this.timeChangeLimit(index,timeCurrentRowLimit)
+    }else {
+      this.timeChangeLimit(index,null)
+    }
+    this.timeCloseRow()
+  }
   changeDefaultMode = (value) => {
     this.setState({
       defaultMode: value
+    })
+  }
+  timeChangeDefaultMode = (value) => {
+    this.setState({
+      timeDefaultMode:value
     })
   }
   submitUser = () => {
@@ -178,12 +232,13 @@ class UserInfo extends Component {
       limitMode
     } = this.state
     let mapAuthFileList = authFileList.filter(item => {
-      return item.limit > 0 || item.type === 'folder'
+      return item.limit > 0 || item.timeLimit > 0 || item.type === 'folder'
     }).map(item => {
       return {
         id: item.id,
         group: item.group,
-        limit: item.limit
+        limit: item.limit,
+        timeLimit:item.timeLimit
       }
     })
     this.props.dispatch({
@@ -205,7 +260,7 @@ class UserInfo extends Component {
     })
   }
   render () {
-    const {email, username, password, id, limitMode, limit, authFileList, showLimitForm, currentRow, currentRowLimit, defaultMode} = this.state
+    const {email, username, password, id, limitMode, limit, authFileList, showLimitForm, currentRow, currentRowLimit, defaultMode,timeShowLimitForm,timeCurrentRow,timeCurrentRowLimit,timeDefaultMode} = this.state
     const userFormProps = {
       username,
       email,
@@ -230,7 +285,18 @@ class UserInfo extends Component {
       confirmRow: this.confirmRow,
       closeRow: this.closeRow,
       defaultMode,
-      changeDefaultMode: this.changeDefaultMode
+
+      changeDefaultMode: this.changeDefaultMode,
+      timeCurrentRow,
+      timeCurrentRowLimit,
+      timeShowLimitForm,
+      // timeChangeLimit:this.timeChangeLimit,
+      timeChangeCurrentLimit:this.timeChangeCurrentLimit,
+      timeOpenRow:this.timeOpenRow,
+      timeConfirmRow:this.timeConfirmRow,
+      timeCloseRow:this.timeCloseRow,
+      timeDefaultMode
+
     }
     return (
       <div>

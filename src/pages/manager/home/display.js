@@ -9,19 +9,19 @@ import OfficeReader from './office.js'
 const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
-    'pdf': <PDFReader {...props} />,
+    'pdf': <PDFReader {...props} dispatch={props.dispatch}/>,
     'mp4': <VideoReader {...props} dispatch={props.dispatch}/>,
-    'mp3': <AudioReader {...props} />,
+    'mp3': <AudioReader {...props} dispatch={props.dispatch}/>,
     'avi': <VideoReader {...props} dispatch={props.dispatch}/>,
     'flv': <VideoReader {...props} dispatch={props.dispatch}/>,
     'asf': <VideoReader {...props} dispatch={props.dispatch}/>,
     'wav': <VideoReader {...props} dispatch={props.dispatch}/>,
     'siff': <VideoReader {...props} dispatch={props.dispatch}/>,
-    'png': <ImageReader {...props} />,
-    'jpg': <ImageReader {...props} />,
-    'gif': <ImageReader {...props} />,
-    'jpeg': <ImageReader {...props} />,
-    'docx':<OfficeReader {...props} />,
+    'png': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'jpg': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'gif': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'jpeg': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'docx':<OfficeReader {...props} dispatch={props.dispatch}/>,
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')
@@ -45,7 +45,7 @@ class DisplayPage extends Component {
           <h2>{ currentFile.title }</h2>
         </Header>
         <Content>
-          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit,dispatch:this.props.dispatch}) }
+          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit, timeLimit: currentFile.timeLimit,dispatch:this.props.dispatch}) }
         </Content>
       </Layout>
     )

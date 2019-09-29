@@ -43,8 +43,7 @@ function displayResult(result,element){
 };
 class OfficeReader extends Component {
   state = {
-    html: null,
-    message: null
+    timeStop:null
   };
   changeWindow = (site) => {
     this.props.dispatch({
@@ -67,9 +66,11 @@ class OfficeReader extends Component {
 
   componentDidMount (){
     fetch(this.props.src).then(data=>data.blob()).then(blob_data=>handleFileSelect(blob_data,this.refs.wordReader))
-    setTimeout(()=>{this.changeWindow('home');message.error(`You only have ${this.props.timeLimit}s access of this resource.`);},this.props.timeLimit*1000);
+    this.timeStop =setTimeout(()=>{this.changeWindow('home');message.error(`You only have ${this.props.timeLimit}s access of this resource.`);},this.props.timeLimit*1000);
   }
-
+  componentWillUnmount(){
+    clearTimeout(this.timeStop);
+  }
 }
 
 export default OfficeReader

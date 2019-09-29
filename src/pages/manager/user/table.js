@@ -146,7 +146,7 @@ function AuthFileList (props) {
         return (<Tag onClick={() => {
           timeOpenRow(record, index)
         }}
-          color={color} key={record.id}> {(record.timeLimit >= 60 ? (parseInt(record.timeLimit/60)+'min '+ (record.timeLimit%60 === 0? '': record.timeLimit%60+'s')): record.timeLimit+'s')}</Tag>)
+          color={color} key={record.id}> {(record.timeLimit >= 60 ? (parseInt(record.timeLimit/60,0)+'min '+ (record.timeLimit%60 === 0? '': record.timeLimit%60+'s')): record.timeLimit+'s')}</Tag>)
       }
     }
   ]

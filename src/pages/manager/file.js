@@ -185,7 +185,7 @@ class FileInfo extends Component {
     const formLayout = {
       labelCol: { span: 4 },
       wrapperCol: { span: 14 },
-    } 
+    }
     const {dataSource} = this.props
     return (
       <div>
@@ -198,9 +198,9 @@ class FileInfo extends Component {
           </FormItem>
         </Form>
         <Table style={{marginTop: '10px'}}
-          scroll={{ y: 240 }} 
-          rowSelection={rowSelection} 
-          dataSource={dataSource} 
+          scroll={{ y: 240 }}
+          rowSelection={rowSelection}
+          dataSource={dataSource}
           columns={columnWrapper(this)}
           pagination={{ pageSize: 10 }}
           rowKey={(record) => record.id}

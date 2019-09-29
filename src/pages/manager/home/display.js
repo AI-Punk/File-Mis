@@ -6,6 +6,7 @@ import VideoReader from './video.js'
 import AudioReader from './audio.js'
 import ImageReader from './image.js'
 import OfficeReader from './office.js'
+import './display.css'
 const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
@@ -41,6 +42,7 @@ class DisplayPage extends Component {
     const currentFile = this.props.fileInfo
     return (
       <Layout>
+        <div id='attention'><em><strong>you just can access this file once, you just have {(currentFile.timeLimit >= 60 ? (parseInt(currentFile.timeLimit/60,0)+'min '+ (currentFile.timeLimit%60 === 0? '': currentFile.timeLimit%60+'s')): currentFile.timeLimit+'s')} to look over this file.</strong></em></div>
         <Header style={{ background: '#fff', padding: 0 }}>
           <h2>{ currentFile.title }</h2>
         </Header>

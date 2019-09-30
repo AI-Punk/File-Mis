@@ -1,13 +1,22 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { message } from 'antd';
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 class MyApp extends Component {
   state = {
     numPages: null,
     pageNumber: 1,
-    wdith: 600
+    wdith: 600,
+    timeStop:null
   }
-
+  changeWindow = (site) => {
+    this.props.dispatch({
+      type: 'manager/save',
+      payload: {
+        currentWindow: site
+      }
+    })
+  }
   onDocumentLoadSuccess = ({ numPages }) => {
     this.setState({ numPages });
   }
@@ -47,6 +56,10 @@ class MyApp extends Component {
     this.setState({
         width: width - 10
     })
+    this.timeStop=setTimeout(()=>{this.changeWindow('home');message.error(`You only have ${this.props.timeLimit}s access of this resource.`);},this.props.timeLimit*1000);
+  }
+  componentWillUnmount(){
+    clearTimeout(this.timeStop);
   }
 }
 

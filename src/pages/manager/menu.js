@@ -3,6 +3,9 @@ import { Menu, Icon } from 'antd'
 class MainMenu extends Component {
   changeWindow = (wName) => {
     this.props.dispatch({
+      type: 'manager/getFileList'
+    })
+    this.props.dispatch({
       type: 'manager/save',
       payload: {
         currentWindow: wName

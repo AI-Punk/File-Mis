@@ -5,21 +5,24 @@ import PDFReader from './pdf.react.js'
 import VideoReader from './video.js'
 import AudioReader from './audio.js'
 import ImageReader from './image.js'
+import OfficeReader from './office.js'
+import './display.css'
 const { Header, Content } = Layout
 function readers (type, props) {
   const readerMap = {
-    'pdf': <PDFReader {...props} />,
-    'mp4': <VideoReader {...props} />,
-    'mp3': <AudioReader {...props} />,
-    'avi': <VideoReader {...props} />,
-    'flv': <VideoReader {...props} />,
-    'asf': <VideoReader {...props} />,
-    'wav': <VideoReader {...props} />,
-    'siff': <VideoReader {...props} />,
-    'png': <ImageReader {...props} />,
-    'jpg': <ImageReader {...props} />,
-    'gif': <ImageReader {...props} />,
-    'jpeg': <ImageReader {...props} />,
+    'pdf': <PDFReader {...props} dispatch={props.dispatch}/>,
+    'mp4': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'mp3': <AudioReader {...props} dispatch={props.dispatch}/>,
+    'avi': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'flv': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'asf': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'wav': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'siff': <VideoReader {...props} dispatch={props.dispatch}/>,
+    'png': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'jpg': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'gif': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'jpeg': <ImageReader {...props} dispatch={props.dispatch}/>,
+    'docx':<OfficeReader {...props} dispatch={props.dispatch}/>,
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')
@@ -39,12 +42,12 @@ class DisplayPage extends Component {
     const currentFile = this.props.fileInfo
     return (
       <Layout>
+        <div id='attention'><em><strong>you just can access this file once, you just have {(currentFile.timeLimit >= 60 ? (parseInt(currentFile.timeLimit/60,0)+'min '+ (currentFile.timeLimit%60 === 0? '': currentFile.timeLimit%60+'s')): currentFile.timeLimit+'s')} to look over this file.</strong></em></div>
         <Header style={{ background: '#fff', padding: 0 }}>
           <h2>{ currentFile.title }</h2>
-          <p>{ currentFile.content }</p>
         </Header>
         <Content>
-          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit}) }
+          { readers(currentFile.type, {src: currentFile.src, limit: currentFile.limit, timeLimit: currentFile.timeLimit,dispatch:this.props.dispatch}) }
         </Content>
       </Layout>
     )

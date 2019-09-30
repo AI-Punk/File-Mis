@@ -226,7 +226,7 @@ export default {
         group: group.concat(folderName)
       })
       yield put({
-        type: 'postFileList', 
+        type: 'postFileList',
         payload: {fileList}
       })
       yield put({ type: 'getFileList' })
@@ -255,7 +255,7 @@ export default {
         })
       }
       yield put({
-        type: 'postFileList', 
+        type: 'postFileList',
         payload: {fileList}
       })
       yield put({ type: 'getFileList' })

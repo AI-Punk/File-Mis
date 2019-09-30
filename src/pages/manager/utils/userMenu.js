@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {Menu, Dropdown, Icon} from 'antd'
-import cookie from 'cookie_js'
+import cookie from 'js-cookie'
+
 import image from '../../../assets/yay.jpg'
 import './userMenu.css'
 

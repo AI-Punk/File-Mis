@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import { Document, Page } from 'react-pdf';
+import React, { Component } from 'react'
 import { message } from 'antd';
-
+import { Document, Page, pdfjs } from 'react-pdf';
+pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 class MyApp extends Component {
   state = {
     numPages: null,

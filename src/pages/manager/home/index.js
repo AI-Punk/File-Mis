@@ -1,7 +1,7 @@
-import React, {Component} from 'react'
-import { List, Icon, Input, Button } from 'antd'
+import React, { Component } from 'react'
+import { List, Icon, Input, Button, message } from 'antd'
 import { connect } from 'dva'
-import {setTime} from "../../../utils/visit_time" 
+import { setTime } from "../../../utils/visit_time"
 const Search = Input.Search
 const IconText = ({ type, text }) => (
   <span>
@@ -11,7 +11,7 @@ const IconText = ({ type, text }) => (
 );
 const pageSize = 3
 class ResourceSegment extends Component {
-  constructor () {
+  constructor() {
     super()
     this.state = {
       page: 0,
@@ -19,16 +19,16 @@ class ResourceSegment extends Component {
     }
   }
   enterFile = (fileId) => {
-    this.props.dispatch({ type: 'manager/getFile', payload: {fileId} })
+    this.props.dispatch({ type: 'manager/getFile', payload: { fileId } })
     this.props.dispatch({
       type: 'manager/save',
       payload: {
-         currentWindow: 'display'
+        currentWindow: 'display'
       }
     })
   }
   changePage = (page) => {
-    this.setState({page})
+    this.setState({ page })
   }
   filterData = (filter) => {
     this.setState({
@@ -36,22 +36,51 @@ class ResourceSegment extends Component {
     })
   }
   clearFilter = () => {
-    this.setState({filter: ''})
+    this.setState({ filter: '' })
   }
-  componentWillMount(){
+  // 提示用户剩余访问时间
+  showLeftTime = () => {
+    let cookieStr = document.cookie
+    let cookieArr = cookieStr.split(";")
+    let cookieObj = {}
+    cookieArr.forEach((item) => {
+      let key = item.slice(0, item.indexOf("=")).toString().trim()
+      let val = item.slice(item.indexOf("=") + 1).toString().trim()
+      cookieObj[key] = val
+    })
+    if(Boolean(cookieObj.isManager)){ // 管理员
+      // console.log("我是管理员")
+      return
+    }
     setTime()
+    let leftTime = JSON.parse(localStorage.getItem("time")).leftTime
+    // 10 * 60 * 1000
+    if (leftTime) {
+      let min = Math.floor(leftTime / 1000 / 60)
+      let sec = Math.floor(leftTime / 1000 % 60).toString().padStart(2, "0")
+      let msg = `本次访问剩余${min}分${sec}秒`
+      message.success(msg)
+    } else {
+      // 直接返回到根路径
+      window.location.assign("/#/entry")
+    }
   }
-  render () {
-    const {filter} = this.state
+  componentWillMount() {
+    // this.showLeftTime()
+  }
+  to
+  // message.success('login success')
+  render() {
+    const { filter } = this.state
     let fileList = this.props.fileList
       .filter(item => {
         return item.id.slice(0, 6) !== '_fake_'
       })
       .filter(item => {
-      return  item.title.search(filter) !== -1 ||
-        item.content.search(filter) !== -1 ||
-        item.creator.search(filter) !== -1
-    })
+        return item.title.search(filter) !== -1 ||
+          item.content.search(filter) !== -1 ||
+          item.creator.search(filter) !== -1
+      })
     return (
       <div>
         <Search
@@ -60,7 +89,7 @@ class ResourceSegment extends Component {
           enterButton
           style={{ width: 460 }}
         />
-        <Button style={{marginLeft: '10px'}} type="primary" onClick={this.clearFilter}>Clear Filter</Button>
+        <Button style={{ marginLeft: '10px' }} type="primary" onClick={this.clearFilter}>Clear Filter</Button>
         <List
           itemLayout="vertical"
           size="large"
@@ -79,7 +108,7 @@ class ResourceSegment extends Component {
             >
               <List.Item.Meta
                 avatar={<Icon type="file-pdf" />}
-                title={<a onClick={() => {this.enterFile(item.id)}}>{item.title}</a>}
+                title={<a onClick={() => { this.enterFile(item.id) }}>{item.title}</a>}
                 description={item.description}
               />
               {item.content}

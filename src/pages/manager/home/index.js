@@ -40,8 +40,7 @@ class ResourceSegment extends Component {
   }
   // 提示用户剩余访问时间
   showLeftTime = () => {
-    let cookieStr = "isManager=true; username=wedon; token=64561ec3ecc4d112a39cda9d7e9449b8b908266b"
-
+    let cookieStr = document.cookie
     let cookieArr = cookieStr.split(";")
     let cookieObj = {}
     cookieArr.forEach((item) => {

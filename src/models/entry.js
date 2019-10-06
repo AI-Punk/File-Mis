@@ -30,12 +30,14 @@ export default {
         cookie.set('token', result.data.token, {expires: result.data.expires || 1})
         cookie.set('isManager', result.data.isManager, {expires: result.data.expires || 1})
         cookie.set('username', payload.username || 'user')
-
+        // console.log(result.data);
         
         // 访问时间的限制 宇栋学长让先做 使用 localStorage 来做
         // 默认 600000毫秒
-        setTime(Number.parseInt(result.data.visit_time))
-
+        if(!result.data.isManager){ // 管理员不设置时间
+          setTime(Number.parseInt(result.data.visit_time))
+          
+        }
         yield put(routerRedux.push('/'))
         message.success('login success')
       } else {

@@ -11,7 +11,8 @@ class UserInfo extends Component {
       username = '',
       email = '',
       dataSource,
-      limit = null
+      limit = null,
+      timeLimit = null
     } = props
     let selectedRowKeys = authFileList.map(authFile => {
       return authFile.id
@@ -53,7 +54,11 @@ class UserInfo extends Component {
       email,
       limitMode: limit === null ? false : true,
       limit: limit === null ? 60 : limit,
-      defaultMode: false
+      defaultMode: false,
+
+      timeLimitMode: timeLimit === null ? false : true,
+      timeLimit: timeLimit === null ? 60 : timeLimit,
+      timeDefaultMode: false
     }
   }
   UNSAFE_componentWillReceiveProps (props) {
@@ -285,17 +290,18 @@ class UserInfo extends Component {
       confirmRow: this.confirmRow,
       closeRow: this.closeRow,
       defaultMode,
-
       changeDefaultMode: this.changeDefaultMode,
+
       timeCurrentRow,
       timeCurrentRowLimit,
       timeShowLimitForm,
-      // timeChangeLimit:this.timeChangeLimit,
+      timeChangeLimit:this.timeChangeLimit,
       timeChangeCurrentLimit:this.timeChangeCurrentLimit,
       timeOpenRow:this.timeOpenRow,
       timeConfirmRow:this.timeConfirmRow,
       timeCloseRow:this.timeCloseRow,
-      timeDefaultMode
+      timeDefaultMode,
+      timeChangeDefaultMode: this.timeChangeDefaultMode
 
     }
     return (

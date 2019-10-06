@@ -11,6 +11,9 @@ class MyApp extends Component {
   }
   changeWindow = (site) => {
     this.props.dispatch({
+      type: 'manager/getFileList'
+    })
+    this.props.dispatch({
       type: 'manager/save',
       payload: {
         currentWindow: site

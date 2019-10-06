@@ -42,7 +42,9 @@ class DisplayPage extends Component {
     const currentFile = this.props.fileInfo
     return (
       <Layout>
-        <div id='attention'><em><strong>you just can access this file once, you just have {(currentFile.timeLimit >= 60 ? (parseInt(currentFile.timeLimit/60,0)+'min '+ (currentFile.timeLimit%60 === 0? '': currentFile.timeLimit%60+'s')): currentFile.timeLimit+'s')} to look over this file.</strong></em></div>
+        { currentFile.type === 'mp4'|'mp3'|'avi'|'flv'|'asf'|'wav'|'siff' ? '':
+          <div id='attention'><em><strong>you just can access this file once, you just have {(currentFile.timeLimit >= 60 ? (parseInt(currentFile.timeLimit/60,0)+'min '+ (currentFile.timeLimit%60 === 0? '': currentFile.timeLimit%60+'s')): currentFile.timeLimit+'s')} to look over this file.</strong></em></div>
+        }
         <Header style={{ background: '#fff', padding: 0 }}>
           <h2>{ currentFile.title }</h2>
         </Header>

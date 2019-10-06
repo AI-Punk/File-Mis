@@ -31,7 +31,7 @@ class FileInfo extends Component {
       return authUser.id
     })
     let mapAuthUserList = dataSource.map(record => {
-      let timeLimit = 1
+      let timeLimit = 999
       let limit = 1
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
       if (findIndex > -1) {

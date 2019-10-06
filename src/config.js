@@ -1,5 +1,5 @@
 const Config = {
-  host: '//lvmaozi.info',
+  host: '//119.23.105.35',
 //   host: '//localhost',
   port: 8000,
   // port: 8080,

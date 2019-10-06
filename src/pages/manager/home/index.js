@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { List, Icon, Input, Button, message } from 'antd'
 import { connect } from 'dva'
 import { setTime } from "../../../utils/visit_time"
+
 const Search = Input.Search
 const IconText = ({ type, text }) => (
   <span>
@@ -38,6 +39,8 @@ class ResourceSegment extends Component {
   clearFilter = () => {
     this.setState({ filter: '' })
   }
+  UNSAFE_componentWillMount(){
+
   // 提示用户剩余访问时间
   showLeftTime = () => {
     let cookieStr = document.cookie

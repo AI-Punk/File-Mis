@@ -31,17 +31,14 @@ class FileInfo extends Component {
       return authUser.id
     })
     let mapAuthUserList = dataSource.map(record => {
-      let timeLimit = 999
       let limit = 1
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
       if (findIndex > -1) {
         limit = authUserList[findIndex].limit
-        timeLimit = authUserList[findIndex].timeLimit
       }
       return {
         id: record.id,
-        limit,
-        timeLimit
+        limit
       }
     })
     this.state = {
@@ -68,16 +65,13 @@ class FileInfo extends Component {
     })
     let mapAuthUserList = dataSource.map(record => {
       let limit = 1
-      let timeLimit = 999
       let findIndex = authUserList.findIndex(item => {return item.id === record.id})
       if (findIndex > -1) {
         limit = authUserList[findIndex].limit
-        timeLimit = authUserList[findIndex].timeLimit
       }
       return {
         id: record.id,
-        limit,
-        timeLimit
+        limit
       }
     })
     this.setState({
@@ -107,7 +101,7 @@ class FileInfo extends Component {
       return {id: item}
     })
     let mapAuthUserList = authUserList.filter(item => {
-      return item.limit > 0 | item.timeLimit > 0
+      return item.limit > 0
     }).filter(item => {
       return selectedRowKeysToRecords.findIndex(record => {
         return record.id === item.id
@@ -147,13 +141,6 @@ class FileInfo extends Component {
       authUserList
     })
   }
-  timeChangeLimit = (index, value) => {
-    const {authUserList} = this.state
-    authUserList[index].timeLimit = value
-    this.setState({
-      authUserList
-    })
-  }
   onSelectChange = (selectedRowKeys) => {
     this.setState({ selectedRowKeys });
   }
@@ -164,53 +151,27 @@ class FileInfo extends Component {
     // })
     if (selectedRowKeys.indexOf(record.id) > -1) {
       let limit = authUserList[index].limit
-      let timeLimit = authUserList[index].timeLimit
-      return (
-      <div>
-        <Row>
-          <Col span={12}>
-            <Slider
-              min={0}
-              max={1}
-              onChange={(value) => {this.changeLimit(index, value)}}
-              value={typeof limit === 'number' ? limit : 0}
-              step={0.01}
-            />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={0}
-              max={1}
-              style={{ marginLeft: 16 }}
-              step={0.01}
-              value={limit}
-              onChange={(value) => {this.changeLimit(index, value)}}
-            />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col span={12}>
-            <Slider
-              min={0}
-              max={999}
-              onChange={(value) => {this.timeChangeLimit(index, value)}}
-              value={typeof timeLimit === 'number' ? timeLimit : 0}
-              step={1}
-            />
-          </Col>
-          <Col span={4}>
-            <InputNumber
-              min={0}
-              max={999}
-              style={{ marginLeft: 16 }}
-              step={1}
-              value={timeLimit}
-              onChange={(value) => {this.timeChangeLimit(index, value)}}
-            />
-          </Col>
-        </Row>
-      </div>)
+      return (<Row>
+        <Col span={12}>
+          <Slider
+            min={0}
+            max={1}
+            onChange={(value) => {this.changeLimit(index, value)}}
+            value={typeof limit === 'number' ? limit : 0}
+            step={0.01}
+          />
+        </Col>
+        <Col span={4}>
+          <InputNumber
+            min={0}
+            max={1}
+            style={{ marginLeft: 16 }}
+            step={0.01}
+            value={limit}
+            onChange={(value) => {this.changeLimit(index, value)}}
+          />
+        </Col>
+      </Row>)
     } else {
       return (<p>choose this row first.</p>)
     }

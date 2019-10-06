@@ -14,20 +14,10 @@ class VideoReader extends Component {
     })
   }
   timeLimit = (ev) => {
-    console.log(this.refs);
-    if (this.props.timeLimit>this.refs.video.duration*this.props.limit){
-      if (ev.target.currentTime > this.refs.video.duration * this.props.limit) {
-        this.refs.video.currentTime = 0;
-        message.error(`You only have ${Math.round(this.props.limit * 100)} % access of this resource.`);
-        this.changeWindow('home');
-      }
-    }
-    else {
-      if (ev.target.currentTime > this.props.timeLimit) {
-        this.refs.video.currentTime = 0;
-        message.error(`You only have ${Math.round(this.props.timeLimit/this.refs.video.duration * 100)} % access of this resource.`);
-        this.changeWindow('home');
-      }
+    if (ev.target.currentTime > this.refs.video.duration * this.props.limit) {
+      this.refs.video.currentTime = 0;
+      message.error(`You only have ${Math.round(this.props.limit * 100)} % access of this resource.`);
+      this.changeWindow('home');
     }
   }
   render () {

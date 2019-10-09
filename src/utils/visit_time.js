@@ -40,5 +40,3 @@ let getItem = (item) => {
 let setItem = (key, val) => {
     localStorage.setItem(key, JSON.stringify(val))
 }
-
-

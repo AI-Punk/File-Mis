@@ -22,7 +22,8 @@ function readers (type, props) {
     'jpg': <ImageReader {...props} dispatch={props.dispatch}/>,
     'gif': <ImageReader {...props} dispatch={props.dispatch}/>,
     'jpeg': <ImageReader {...props} dispatch={props.dispatch}/>,
-    'docx':<OfficeReader {...props} dispatch={props.dispatch}/>,
+    'docx':<PDFReader {...props} dispatch={props.dispatch}/>,
+    'doc': <PDFReader {...props} dispatch={props.dispatch}/>
   }
   if (typeof type === 'undefined') {
     message.warning('File type is not defined')

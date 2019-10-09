@@ -39,8 +39,6 @@ class ResourceSegment extends Component {
   clearFilter = () => {
     this.setState({ filter: '' })
   }
-  UNSAFE_componentWillMount(){
-
   // 提示用户剩余访问时间
   showLeftTime = () => {
     let cookieStr = document.cookie

@@ -137,7 +137,7 @@ function AuthFileList (props) {
       title: 'Time Limit',
       key:'TimeLimit',
       render: (text, record, index) => {
-        if (record.timeLimit === null) {
+        if (record.timeLimit == null) {
           return (<Tag onClick={() => {
               timeOpenRow(record, index)
             }} color="blue">unset</Tag>)
